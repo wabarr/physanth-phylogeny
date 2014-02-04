@@ -3,4 +3,4 @@ physanth-phylogeny
 
 ### This is the codebase for [physanthphylogeny.org](http://physanthphylogeny.org)
 
-I am currently updating to the latest and greatest version of django, and refactoring code a bit, so this should be considered untested. 
+Now running on Django 1.6.1 (mod_wsgi 3.4/Python 2.7)
