@@ -75,7 +75,7 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 if DEV:
-    STATIC_ROOT = os.path.join(PROJECT_DIR,"physanth-phylogeny/static") #FOR DEV ONLY
+    STATIC_ROOT = os.path.join(PROJECT_DIR, "base/static") #FOR DEV ONLY
 else:
     STATIC_ROOT = "/home/wab536/webapps/physphylostatic/"
 # URL prefix for static files.
@@ -131,7 +131,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_DIR,'physanth-phylogeny/templates'),
+    os.path.join(PROJECT_DIR, 'base/templates'),
     #os.path.join(PROJECT_DIR,'personalWebsite/templates'),
     #os.path.join(PROJECT_DIR,'academicPhylogeny/templates'),
 )
