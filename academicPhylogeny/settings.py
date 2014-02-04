@@ -16,7 +16,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DEV=True
+DEV=False
 if DEV:
     db = os.path.abspath(os.path.join(PROJECT_DIR,"django_database.db"))
 else:
