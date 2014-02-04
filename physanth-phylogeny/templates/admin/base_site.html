@@ -1,0 +1,46 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Academic Phylogeny' %}{% endblock %}
+
+{% block extrastyle %}
+<style>
+#header{ background-color: #0090c5; border-bottom: solid 3px #999; }
+ 
+#branding h1{ color: #fff; }
+.module h2, .module caption, .inline-group h2 { background:#ccc url(/admin_media/img/admin/nav-bg.gif) bottom left repeat-x; color: #333940; }
+a.section:link, a.section:visited { color: #666666; }
+
+#globalnav li
+{
+display: inline;
+list-style-type: none;
+padding-right: 20px;
+padding-left: 20px;
+font-size: 1em;
+border: 1px solid black;
+border-radius:5px;
+background-color: gray;
+}
+
+</style>
+{% endblock %}
+
+
+{% block branding %}
+<h1 id="site-name">{% trans 'Academic Phylogeny' %}</h1>
+{% endblock %}
+
+{% block nav-global %}
+    <ul id="globalnav">
+        <li><a href = '/'>View Homepage</a></li>
+        <li><a href = '/tree/'>View Tree</a></li>
+        <li><a href = '/validate/'>Validate User Submissions</a></li>
+        <li><a href="/admin/academicPhylogeny/person/">People</a></li>
+        <li><a href="/admin/academicPhylogeny/connection/">Connections</a></li>
+        <li><a href="/admin/academicPhylogeny/usersubmission/">Raw User Submissions</a></li>
+        <li><a href="/admin/academicPhylogeny/usercontact/">View User Contacts</a></li>
+        <li><a href="/email_user/">Send An Email</li>
+    </ul>
+
+{% endblock %}

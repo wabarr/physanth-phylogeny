@@ -1,0 +1,12 @@
+.CV_element        {}
+
+.CV_left          {display: inline-block;
+                        width: 100px;
+                        padding-left: 5px;
+			font-weight:bold;}
+
+.CV_right          {display: inline-block;
+                         padding-left: 50px;
+                         text-indent: -50px;
+                         vertical-align: top;
+                         width: 200px; /* for testing purposes only */}

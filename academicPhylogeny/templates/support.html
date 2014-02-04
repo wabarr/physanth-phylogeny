@@ -1,0 +1,64 @@
+{% extends "academicPhylo_base.html" %}
+{% load staticfiles %}
+
+{% block base_content %}
+<!-- Banner Wrapper -->
+			<div id="banner-wrapper">
+				<div class="5grid-layout">
+
+
+                    <div class="row">
+                        <div class="12u">
+                          <section class="box box-feature">
+                              <div class="inner" style="text-align:center; font-weight:bold;">
+                                 <p>This website is not supported by any granting agency or university. If you would like to help us keep it online and up to date, please consider a small donation to help with our operating expenses (e.g., server costs).</p>
+
+                              </div>
+                          </section>
+                      </div>
+                     </div>
+
+
+                     <div class="row">
+                      <div class="6u">
+                          <section class="box box-feature">
+                              <div class="inner" style="text-align:center;">
+                                 <header><a href="http://www.amazon.com/?_encoding=UTF8&camp=1789&creative=390957&linkCode=ur2&tag=ancientecocom-20"" class="button button-icon button-icon-rarrow">Shop on Amazon</a></header>
+                                 <p>Use this link for your usual shopping on amazon.com and our project receives a small fee. It's the easiest way to help keep this site online!
+                                 <p style="margin-top: 10px;">
+                                    <SCRIPT charset="utf-8" type="text/javascript" src="http://ws-na.amazon-adsystem.com/widgets/q?rt=tf_sw&ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fancientecocom-20%2F8002%2F4bf2c915-1490-4423-b895-56f46b6497a0"> </SCRIPT> <NOSCRIPT><A HREF="http://ws-na.amazon-adsystem.com/widgets/q?rt=tf_sw&ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fancientecocom-20%2F8002%2F4bf2c915-1490-4423-b895-56f46b6497a0&Operation=NoScript">Amazon.com Widgets</A></NOSCRIPT>
+                                 </p>
+                              </div>
+                          </section>
+                      </div>
+
+                       <div class="6u">
+                          <section class="box box-feature">
+                              <div class="inner" style="text-align:center;">
+                                 <header><a href="" class="button button-icon button-icon-rarrow">Donate with Paypal</a></header>
+                                 <p>You can securely send us a direct donation using your credit card or your paypal account. This money helps to offset costs to maintain the site.</p>
+                                  <p style="margin-top: 20px;">
+                                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="background-color: white; margin: 0 auto; width:175px;">
+                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                    <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+                                    ">
+                                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                    </form>
+                                  </p>
+
+                              </div>
+                          </section>
+
+                      </div>
+
+
+                  </div>
+
+
+
+			        </div>
+                </div>
+
+
+{% endblock %}

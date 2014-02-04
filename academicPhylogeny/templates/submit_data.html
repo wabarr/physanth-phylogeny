@@ -1,0 +1,64 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block nav-submit %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Make a new connection</li></article>
+						</div>
+
+				</div>
+				<div class="8u">
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3 class="customMessage">{{ message }}</h3></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                <article>
+                <p><span style="font-weight: bold;">Please <a href="/search/">search the tree</a> before submitting data.</span><br> This page is only for making new advisor --> student connections.<br>
+                    <span style="font-weight: bold;"><a href="/contact/">Use the contact page</a> </span>to change info for someone already in the tree.</p>
+
+                <input class="customsubmit" type="button" value="I get it! Let me submit my data." onclick="$('#submitForm,#submitFormContainer').show();"/>
+                <input class="customsubmit" type="button" value="I want to submit a correction for existing data." onclick="window.location.href='/contact/'"/>
+
+                </article>
+
+
+                    <article>
+					    <div id="content">
+                            <div class="EightyPercentWidthGreyContainer" id="submitFormContainer">
+                                <form id="submitForm" class="formNoBackground" action="/submit/" method="post">{% csrf_token %}
+                                    <h3 style="margin-top: 0px">Data Submission Form</h3>
+                                <p>Reminder: Only submit data for people who have <span style="font-style:italic; font-weight:bold;">completed</span> a PhD.</p>
+
+                                {{ form.as_p }}
+                                <input class="customsubmit" type="submit" value="Submit" />
+                                </form>
+					        </div>
+                        </div>
+                    </article>
+
+                    <script>
+                        //only hide form if no error messages
+                       if ($(".messages").length == 0) {
+                          $("#submitForm,#submitFormContainer,#submitFormAlertMessage").hide();
+                        };
+
+                    </script>
+				</div>
+			</div>
+        </div>
+    </div>
+
+{% endblock %}

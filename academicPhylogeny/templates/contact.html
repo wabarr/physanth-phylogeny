@@ -1,0 +1,51 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block nav-contact %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Contact User...</li></article>
+
+
+						</div>
+
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4 class="customMessage">{{ message }}</h4></li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                    <h3>Use this form to send a message to a user. It will come from do-not-reply@physanthphylogeny.org</h3>
+                    <p>This is what it will look like:</p>
+                    <p class="customMessage">****Please do not reply to this message.
+                        You can contact us at www.physanthphylogeny.org/contact/<br>Dear Firstname Lastname,<br>Thanks so much for participating in our project.  We rely on users like you to help get the tree right.<br>
+                        <span style="font-weight: bold;font-size: 12;">Your message goes here</span><br>Thanks again,<br>Andrew Barr, Brett Nachman, and Liza Shapiro<br>physanthphylogeny.org<p>
+
+
+
+                        <div class="EightyPercentWidthGreyContainer">
+                        <form action="." method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input class = "customsubmit" type="submit" value="Submit" />
+                        </form>
+					    </div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+{% endblock %}

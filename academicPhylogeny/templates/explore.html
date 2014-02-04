@@ -1,0 +1,252 @@
+{% extends "academicPhylo_base.html" %}
+{% load staticfiles %}
+
+{% block nav-about %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style type="text/css">
+
+			.axis path,
+			.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+			}
+
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+
+		</style>
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="12u">
+                    <h3 class="customMessage" id="infoRectangle" style="padding:20px;">Double clicking on points or bars in these graphs will reveal a list of PhDs meeting those criteria.</h3>
+                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">PhDs Awarded Per Year</h2>
+
+                    <div id="yearLinesContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
+					<!-- Content -->
+                        <p>We believe this plot depicts a real trend. However, the data certainly contain a bias in that recent
+                        PhDs are more likely to be included in the tree.<br>
+                        An exponential model fit to this data suggests there will be <span style="font-weight: bold;">{{ preds.EXP_2050_prediction }} new PhysAnth PhDs per year</span> by 2050.<br>
+                       Considering only the years 2000-2013, the relationship looks more linear. An OLS regression predicts <span style="font-weight: bold;">{{ preds.OLS_2050_prediction }} new PhDs per year</span> by 2050.</p>
+                    <script>
+                    var yearHeight = 300;
+
+                    function getMainWidth(){
+                        return $('#yearLinesContainer').width();
+                    }
+                    var w = getMainWidth();
+
+                    var padding = 5
+
+			        d3.json("/phdYears/", function(theData) {
+                         //Create SVG element
+                    var mainWidth = $('#main-wrapper').width()
+			        var svg = d3.select("#yearLinesContainer")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", yearHeight);
+                    var yearScale = d3.scale.linear()
+                        .domain([d3.min(theData, function(d) { return d.year; }), d3.max(theData, function(d) { return d.year; })])
+                        .range([0+padding*15, w-(padding*2)]);
+                    var countScale = d3.scale.linear()
+                        .domain([0, d3.max(theData, function(d) { return d.count; })])
+                        .range([yearHeight-30,padding]);
+
+
+                    //Define X axis
+                    var xAxis = d3.svg.axis()
+							  .scale(yearScale)
+							  .orient("bottom")
+							  .ticks(10)
+                              .tickFormat(d3.format(".0f"));
+			        //Define Y axis
+			        var yAxis = d3.svg.axis()
+							  .scale(countScale)
+							  .orient("left")
+							  .ticks(5);
+                    //Create X axis
+			        svg.append("g")
+				        .attr("class", "axis")
+				        .attr("transform", "translate(0," + (yearHeight - (padding*4)) + ")")
+				        .call(xAxis);
+
+			        //Create Y axis
+			        svg.append("g")
+				        .attr("class", "axis")
+				        .attr("transform", "translate(" + padding + 1 + ",0)")
+				        .call(yAxis);
+
+			        svg.selectAll("circle")
+			            .data(theData)
+			            .enter()
+			            .append("circle")
+                        .attr("cx",function(d){return yearScale(d.year);})
+                        .attr("cy",function(d){return countScale(d.count);})
+                        .attr("r",5)
+			            .attr("fill", "#0090c5")
+                        .on("dblclick",function(d){window.location.href="/people/?student__yearOfPhD__exact=" + d.year ;})
+                        .on("mouseover", function(){d3.select(this).style("fill", "black");})
+                        .on("mouseout", function(){d3.select(this).style("fill", "#0090c5");})
+                        .append("svg:title")
+                        .text(function(d) { return d.year + " - " + d.count + " PhDs"})
+
+                        });
+
+                    </script>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+
+				<div class="12u">
+                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">Schools by number of PhDs</h2>
+                    <div id="schoolChartContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
+                    <p>Hover to see school name. Double click to see PhDs from that school. Only schools producing more than 2 PhDs are shown.</p>
+					<!-- Content -->
+                    <script>
+                    //Width and height
+
+			        var h = 250;
+			        var barPadding = 2;
+
+
+			        d3.json("/summarize_schools/", function(theData) {
+                         //Create SVG element
+			        var svg = d3.select("#schoolChartContainer")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+                    var countScale = d3.scale.linear()
+                        .domain([0, d3.max(theData, function(d) { return d.phd_count; })])
+                        .range([-5,h]);
+                    var xScale = d3.scale.linear()
+                        .domain([0, theData.length])
+                        .range([30,w]);
+			        svg.selectAll("rect")
+			            .data(theData)
+			            .enter()
+			            .append("rect")
+			            .attr("x", function(d, i) {
+			   		        return xScale(i) ;
+			            })
+			            .attr("y", function(d) {
+			   		        return h - countScale(d.phd_count);
+			            })
+			            .attr("width",w/theData.length - barPadding)
+			            .attr("height", function(d) {
+			   		        return countScale(d.phd_count);
+			            })
+			            .attr("fill", function(d){
+                                if(d.school == "University of Texas at Austin") {return "#cc6600";}
+                                else {return "#0090c5";}
+                            })
+                        .on("dblclick",function(d){window.location.href="/people/?student__school__id__exact=" + d.id ;})
+                        .on("mouseover", function(){d3.select(this).style("fill", "black");})
+                        .on("mouseout", function(){d3.select(this).style("fill", function(d){
+                                            if(d.school == "University of Texas at Austin") {return "#cc6600";}
+                                            else {return "#0090c5";}
+                                            })})
+                        .append("svg:title")
+                        .text(function(d) { return d.school + ": " + d.phd_count + " PhDs" });
+
+                        var theYAxis = d3.svg.axis()
+							  .scale(countScale.range([h,0]))
+							  .orient("left")
+							  .ticks(6);
+
+
+			            //Create Y axis
+			            svg.append("g")
+				        .attr("class", "axis")
+				        .attr("transform", "translate(" + 20 + ",4)")
+				        .call(theYAxis);
+                        });
+
+                    </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+				<div class="12u">
+                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">Specializations by number of PhDs</h2>
+                    <div id="specializationChartContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
+
+                    <p>Hover to see name of specialization. Double click to see PhDs with that specialization.</p>
+					<!-- Content -->
+                    <script>
+			        var specializationHeight = 400;
+
+
+			        d3.json("/summarize_specializations/", function(theData) {
+                         //Create SVG element
+                    var countScale = d3.scale.linear()
+                        .domain([0, d3.max(theData, function(d) { return d.count; })])
+                        .range([0,specializationHeight]);
+                    var xScale = d3.scale.linear()
+                        .domain([0, theData.length])
+                        .range([35,w]);
+			        var svg = d3.select("#specializationChartContainer")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", specializationHeight);
+
+			        svg.selectAll("rect")
+			            .data(theData)
+			            .enter()
+			            .append("rect")
+			            .attr("x", function(d, i) {
+			   		        return xScale(i);
+			            })
+			            .attr("y", function(d) {
+			   		        return specializationHeight - (countScale(d.count));
+			            })
+			            .attr("width", (w /theData.length) - barPadding*2)
+			            .attr("height", function(d) {
+			   		        return countScale(d.count);
+			            })
+			            .attr("fill", "#0090c5")
+                        .on("dblclick",function(d){window.location.href="/people/?student__specialization__id__exact=" + d.id ;})
+                        .on("mouseover", function(){d3.select(this).style("fill", "black");})
+                        .on("mouseout", function(){d3.select(this).style("fill", "#0090c5");})
+                        .append("svg:title")
+                        .text(function(d) { return d.specialization + ": " + d.count + " PhDs"});
+
+
+                        var theYAxis = d3.svg.axis()
+							  .scale(countScale.range([specializationHeight,0]))
+							  .orient("left")
+							  .ticks(6);
+
+
+			            //Create Y axis
+			            svg.append("g")
+				        .attr("class", "axis")
+				        .attr("transform", "translate(" + 28 + ",4)")
+				        .call(theYAxis);
+
+                        });
+
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

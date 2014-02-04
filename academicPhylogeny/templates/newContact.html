@@ -1,0 +1,45 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block nav-contact %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Corrections & Comments</li></article>
+
+
+						</div>
+
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4 class="customMessage">{{ message }}</h4></li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                    <p class="customMessage">To add data for someone not yet appearing on the tree, use the <a style="font-weight:bold; color:#20b0e5;" href="/submit/">submit form</a> instead.</p>
+
+                        <div class="EightyPercentWidthGreyContainer">
+                        <form action="." method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input class = "customsubmit" type="submit" value="Send Email" />
+                        </form>
+					    </div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,202 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block nav-connections %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+
+.link {
+stroke: #666;
+opacity: 0.6;
+stroke-width: 2px;
+}
+
+.node circle {
+stroke: #fff;
+opacity: 0.6;
+stroke-width: 1.5px;
+}
+
+text {
+font: 14px serif;
+pointer-events: none;
+}
+
+</style>
+
+
+<script>
+  var links = {{ links|safe }}
+  var width = 1600
+ height = 1200 ;
+
+var nodes = {}
+
+// Compute the distinct nodes from the links.
+links.forEach(function(link) {
+link.source = nodes[link.source] ||
+(nodes[link.source] = {name: link.source});
+link.target = nodes[link.target] ||
+(nodes[link.target] = {name: link.target});
+link.value = +link.value;
+});
+
+
+
+var color = d3.scale.category20();
+
+var force = d3.layout.force()
+.nodes(d3.values(nodes))
+.links(links)
+.size([width, height])
+.linkDistance(80)
+.charge(-400)
+.on("tick", tick)
+.start();
+
+var svg = d3.select("body").append("svg")
+.attr("width", width)
+.attr("height", height)
+.attr("pointer-events", "all")
+.call(d3.behavior.zoom().on("zoom", redraw));
+
+svg.append("defs").append("marker")
+    .attr("id", "arrowhead")
+    .attr("viewbox", "10 10 10 10")
+    .attr("refX", 25)
+    .attr("refY", 2)
+    .attr("markerUnits", 'strokeWidth')
+    .attr("markerWidth", 50)
+    .attr("markerHeight", 30)
+    .attr("orient", "auto")
+    .append("path")
+        .attr("d", "M 0,0 V 4 L6,2 Z") //this is actual shape for arrowhead
+    ;
+
+
+var vis = svg
+.append("svg:g");
+
+vis.append("svg:rect")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("fill", 'transparent');
+
+function redraw() {
+vis.attr("transform",
+"translate(" + d3.event.translate + ")"
++ " scale(" + d3.event.scale + ")");
+}
+
+
+var link = vis.selectAll(".link")
+.data(force.links())
+.enter().append("line")
+.attr("class", "link")
+.attr("marker-end", "url(#arrowhead)");
+
+var node = vis.selectAll(".node")
+.data(force.nodes())
+.enter().append("g")
+.attr("class", "node")
+.on("mouseover", mouseover)
+.on("mouseout", mouseout)
+.on("click", click)
+.on("dblclick", dblclick)
+.call(force.drag);
+
+node.append("circle")
+.attr("r", 8)
+.style("fill", function(d) { return color(d.value); });
+
+node.append("text")
+.attr("x", 12)
+.attr("dy", ".35em")
+.style("fill", "steelblue")
+.text(function(d) { return d.name; });
+
+function tick() {
+link
+.attr("x1", function(d) { return d.source.x; })
+.attr("y1", function(d) { return d.source.y; })
+.attr("x2", function(d) { return d.target.x; })
+.attr("y2", function(d) { return d.target.y; });
+
+node
+.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+function mouseover() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 16);
+}
+
+function mouseout() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 8);
+}
+// action to take on mouse click
+function click() {
+d3.select(this).select("text").transition()
+.duration(750)
+.attr("x", 22)
+.style("stroke-width", ".5px")
+.style("fill", "#E34A33")
+.style("font", "20px serif");
+d3.select(this).select("circle").transition()
+.duration(750)
+.style("fill", "#E34A33")
+.attr("r", 16)
+}
+
+// action to take on mouse double click
+function dblclick() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 6)
+.style("fill", "#E34A33");
+d3.select(this).select("text").transition()
+.duration(750)
+.attr("x", 12)
+.style("stroke", "none")
+.style("fill", "#E34A33")
+.style("stroke", "none")
+.style("font", "10px serif");
+}
+
+</script>
+
+<div id="main-wrapper">
+<div class="5grid-layout">
+    <div class="row">
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+						<li class="button customColor">The Data</li>
+						</div>
+
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+						<div id="content">
+						{% if allConnections %}
+							<ul>
+							{% for eachConnection in allConnections %}
+								<li>{{ eachConnection.Advisor_to_Student_Connection }} - ({{ eachConnection.student.school }})</li>
+							{% endfor %}
+							</ul>
+						{% else %}
+							<p>There are no defined connections.</p>
+						{% endif %}
+						</div>
+
+	</div>
+</div>
+</div>
+{% endblock %}

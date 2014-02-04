@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="230px" height="105px" viewBox="0 0 230 105" enable-background="new 0 0 230 105" xml:space="preserve">
+<path fill="#FFFFFF" stroke="#575757" d="M228.273,97.682c0,3.488-3.127,6.318-6.981,6.318H7.98C4.125,104,1,101.17,1,97.682V8.156
+	c0-3.49,3.125-6.319,6.98-6.319h213.312c3.854,0,6.979,2.829,6.979,6.319L228.273,97.682L228.273,97.682z"/>
+<ellipse fill="#0C91C5" stroke="#0C91C5" cx="12.476" cy="32.698" rx="4.566" ry="4.601"/>
+<ellipse fill="#333232" stroke="#0C91C5" cx="144.414" cy="32.656" rx="4.566" ry="4.602"/>
+<text transform="matrix(0.9925 0 0 1 18.2808 36.7139)" opacity="0.69" fill="#020202" enable-background="new    " font-family="'MyriadPro-Regular'" font-size="13.5"> = Advisor Unknown</text>
+<text transform="matrix(0.9925 0 0 1 150.3828 37.0488)" opacity="0.69" fill="#020202" enable-background="new    " font-family="'MyriadPro-Regular'" font-size="13.5"> = Co-advisee</text>
+<text transform="matrix(0.9925 0 0 1 82.5972 18.5791)" opacity="0.69" fill="#020202" enable-background="new    " font-family="'MyriadPro-Regular'" font-size="18">Legend</text>
+<path fill="#F4C7C7" d="M224.99,95.968c0,2.761-3.11,4.999-6.944,4.999H10.878c-3.835,0-6.944-2.238-6.944-4.999V48.895
+	c0-2.763,3.109-5,6.944-5h207.167c3.834,0,6.944,2.237,6.944,5L224.99,95.968L224.99,95.968z"/>
+<text transform="matrix(0.9925 0 0 1 12.9722 67.2021)" opacity="0.73" fill="#020202" enable-background="new    " font-family="'MyriadPro-Regular'" font-size="12">Double click on a name to see details.</text>
+<text transform="matrix(0.9925 0 0 1 12.9722 88.9746)" opacity="0.73" fill="#020202" enable-background="new    " font-family="'MyriadPro-Regular'" font-size="12">SHIFT + click to expand/collapse node.</text>
+</svg>

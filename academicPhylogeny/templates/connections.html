@@ -1,0 +1,62 @@
+{% extends "academicPhylo_base.html" %}
+
+<!--Update the navigation bar in base.html with class "current_page_item"-->
+{% block nav-connections %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+			
+<div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+            <div class="8u">
+                    A static image of the database visualization is shown below.  If you use Google Chrome or Safari for your browser, you can view a much better,
+                    <a href="/tree/viz/">interactive version</a> of the database visualization.
+                </div>
+            </div>
+
+			<div class="row">
+				<div class="8u">
+
+					<img src="/static/images/currentNetwork.jpg" alt="networkOfPhDs">
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="4u">
+				
+					<!-- Sidebar -->
+						<div id="sidebar">
+						<li class="button customColor">The Data</li>
+						</div>
+				
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+						<div id="content">
+						{% if allConnections %}
+							<ul>
+							{% for eachConnection in allConnections %}
+								<li>{{ eachConnection.Advisor_to_Student_Connection }} - ({{ eachConnection.student.school }})</li>
+							{% endfor %}
+							</ul>
+						{% else %}
+							<p>There are no defined connections.</p>
+						{% endif %}
+						</div>
+
+				</div>
+			</div>
+
+	
+		
+	
+
+
+		
+	</div>
+</div>
+		              
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Permissions Issue</li></article>
+						</div>
+
+				</div>
+				<div class="8u">
+                    <article>
+                        <p style="color:red; font-weight:bold;">You don't have administrator permissions to do what you just tried to do.</p>
+                        <ul><li><a href="/contact/" class="button button-alt button-icon button-icon-question">Contact Administrator About This</a></li></ul>
+                        <ul><li><a href="/tree/" class="button button-alt button-icon button-icon-question">Head Back to the Tree</a></li></ul>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

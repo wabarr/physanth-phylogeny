@@ -1,0 +1,43 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Please Login</li></article>
+						</div>
+
+				</div>
+				<div class="8u">
+                    <article>
+                        <h4 style="margin-bottom: 15px;" class="customMessage">You must be logged in as an administrator to access that page.</h4>
+
+                        {% if messages %}
+                            <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4 class="customMessage">{{ message }}</h4></li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                        <form name="validateuser" method="post" action="/anonymous/">{% csrf_token %}
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username"/>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password"/>
+                            <input class="customsubmit" type="submit" value="Login"/>
+                            <input type="hidden" name="referringPageURL" value="{{ referringPageURL }}"/>
+                        </form>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

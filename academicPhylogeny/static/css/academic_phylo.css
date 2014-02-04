@@ -1,0 +1,174 @@
+.button.customColor
+{
+    background:#444444;
+}
+
+
+
+input.customsubmit
+
+{
+	padding:		10px 20px !important;
+	font-size:		14px !important;
+	background-color:	#f1f1f1;
+	font-weight:		bold;
+	color: #2B2D2C;
+    border-radius: 5px;
+    margin-top: 1em ;
+}
+
+input.customradio
+
+{-webkit-appearance:radio}
+
+input.customselect
+
+{-webkit-appearance:listbox}
+
+span.helptext
+{
+    display:block;
+    font-size: 10pt;
+}
+
+#logoanchor
+{
+    font-size: .55em;
+}
+
+form    {
+background: #f1f1f1;
+margin:auto;
+position:relative;
+width:100%;
+line-height: 24px;
+border-radius: 10px;
+padding:10px;
+
+}
+
+.formNoBackground
+{
+    background:transparent;
+}
+
+input, select, textarea
+{
+    display:block;
+}
+
+textarea:focus, input:focus {
+border: 1px solid #0090c5;
+}
+td {
+    padding-left:12px;
+    padding-right:12px;
+    }
+tr:nth-child(odd)		{ background-color:transparent; }
+tr:nth-child(even)		{ background-color:#f1f1f1; }
+tr:hover {
+    background-color:rgba(228, 26, 28,.2);
+}
+.FiftyPercentWidthGreyContainer
+{
+    background:#f1f1f1;
+    padding:10px;
+    border-radius: 10px;
+    width:50%;
+}
+
+.EightyPercentWidthGreyContainer
+{
+    background:#f1f1f1;
+    padding:10px;
+    border-radius: 10px;
+    width:80%;
+}
+
+.OneHundredPercentWidthGreyContainer
+{
+    background:#f1f1f1;
+    padding:10px;
+    border-radius: 10px;
+    width:100%;
+}
+
+.row .rowPaddedTop
+{
+    padding-top: 2em;
+}
+
+#formValidateSchool
+{
+    background: red;
+}
+
+.h4Box
+{
+   border-radius:10px;
+   padding:1em;
+   margin:1em;
+
+}
+
+input[type='checkbox'] {
+    -webkit-appearance: checkbox;
+}
+
+#id_source,.normalWebkitSelect {
+-webkit-appearance: menulist;
+}
+
+.customMessage
+{
+   padding-left:15px;
+   border-radius:5px;
+   background-color:rgba(228, 26, 28,.2);
+}
+
+.errorlist
+{
+   padding:5px;
+   border-radius:5px;
+   background-color:rgba(228, 26, 28,.2);
+}
+
+h3.lessBottomMargin{
+    margin-bottom: 10px;
+}
+
+.treeContainer
+{
+    border-radius: 5px;
+    padding-top: 15px;
+}
+
+
+#nav ul ul {
+	display: none;
+
+}
+
+#nav ul li:hover > ul {
+		display: block;
+	}
+
+
+#nav ul ul {
+    z-index: 100;
+	position: absolute; top: 100%;
+    border: 1px solid black;
+    border-radius: 2px;
+
+}
+	#nav ul ul li {
+		float: none;
+		position: relative;
+
+        background: #f7f7f7 url('images/bg.jpg');
+        padding: 1px 10px 1px 10px;
+
+	}
+		#nav ul ul li a {
+			color: #696969;
+		}

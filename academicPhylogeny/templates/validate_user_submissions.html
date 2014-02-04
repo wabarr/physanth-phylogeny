@@ -1,0 +1,231 @@
+{% extends "academicPhylo_base.html" %}
+{% block javascript_doc_ready %}
+    <script>
+
+    function userDoubleCheck()
+        {
+        var selectedAdvisor = $("#selectedAdvisorID option:selected").val();
+        var selectedStudent = $("#selectedStudentID option:selected").val();
+        $('#advisorToSave').val(selectedAdvisor);
+        $('#studentToSave').val(selectedStudent);
+
+        var school = $("#selectedSchoolID option:selected").text();
+        var advisor = $("#selectedAdvisorID option:selected").text();
+        var student = $("#selectedStudentID option:selected").text();
+        if(confirm("Confirm Before Adding to Database:\n\nSchool=  " + school + "\n\n" +
+                            "Student= " + student + "\n\n" +
+                            "Advisor= " + advisor ))
+            {return true;}
+        else
+            {return false;}
+        };
+
+    $(document).ready(function(){
+            $("#problemNotes,#problemNotes_label").hide();
+            $("#flagAsProblem_submit").hide();
+
+            if ($("#noStudentMatches").length) {
+                $('#useSelectedStudent').hide();
+            }
+            if ($("#noSchoolMatches").length) {
+                $('#useSelectedSchool').hide();
+            }
+            if ($("#noAdvisorMatches").length) {
+                $('#useSelectedAdvisor').hide();
+            }
+
+        $("#admin_problem").click(function(){
+            $("#problemNotes,#problemNotes_label").toggle();
+            $("#AddConnection").toggle();
+            $("#flagAsProblem_submit").toggle();
+            $("#model_hidden").val(function(){
+                var theVal = $("#model_hidden").val();
+                if(theVal === "flagAsProblem"){return "connection";}
+                if(theVal === "connection"){return "flagAsProblem";}
+            });
+
+            });
+        });
+    </script>
+{% endblock %}
+{% block base_content %}
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+            <div class="row">
+                <div class="6u">
+                    <div id="sidebar">
+                    {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4 class="customMessage">{{ message }}</h4></li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+
+
+                   {% if submissionToValidate %}
+                       <div class="EightyPercentWidthGreyContainer" style="background:transparent; border:1px solid darkgrey;">
+                            <h3 style="text-align: center; margin-bottom: 5px"> User Submission</h3>
+                            <p style="text-align: center;"><a href="/admin/academicPhylogeny/usersubmission/{{ submissionToValidate.id }}/">Edit Submission in Admin Site</a></p>
+                            <h4 class="h4Box" style="background:#f1f1f1;">Submitted by: {{ submissionToValidate.Your_Email }}{% if submissionToValidate.sendEmailConfirmation %}&#x2713;{% endif %}</h4>
+
+                            <h4 class="h4Box" style="background:rgba(77,175,74,0.07);">School: {{ submissionToValidate.school }} ({{submissionToValidate.year_of_PhD}})</h4>
+                            <h4 class="h4Box" style="background:rgba(152,78,163,0.07);">Student: {{ submissionToValidate.student_first_name }} {{ submissionToValidate.student_last_name }}</h4>
+                            <h4 class="h4Box" style="background:rgba(55,126,184,0.07);">Advisor: {{ submissionToValidate.advisor_first_name }} {{ submissionToValidate.advisor_last_name }}</h4>
+
+
+                           {% if submissionToValidate.specialization.count > 0 %}
+                                <h4 class="h4Box" style="background:#f1f1f1;">Specialization: {% for each in submissionToValidate.specialization.all %} <li>{{ each }}</li>{% endfor %}</h4>
+                           {% endif %}
+                           <h4 class="h4Box" style="background:#f1f1f1;">Source: {{ submissionToValidate.source }}</h4>
+
+                           {% if submissionToValidate.notes %}
+                               <h4 class="h4Box" style="background:#f1f1f1;">Notes (source of Info): {{ submissionToValidate.notes }}</h4>
+                           {% endif %}
+                            <form class="formNoBackground" action="/save_data/" onsubmit="return userDoubleCheck()" method="post" id="connectionSubmitForm">{% csrf_token %}
+
+                                <input type="hidden" name="advisor" id="advisorToSave">
+                                <input type="hidden" name="student" id="studentToSave">
+
+                                <input type="hidden" id="model_hidden" name="model" value="connection">
+                                <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                <input style="display:inline;" type="checkbox" name="admin_problem" id="admin_problem"/>
+                                <label for ="admin_problem">Flag Submission As A Problem</label>
+                                <label style="display:block; margin-top: 1em;" for ="problemNotes" id="problemNotes_label">What's the Problem?</label>
+                                <textarea style="display:block;" name="problem_notes" id="problemNotes" cols=50></textarea>
+                                <input type="submit" class="customsubmit" id="AddConnection" value="Add Connection to Database"/>
+                                <input type="submit" class="customsubmit" id="flagAsProblem_submit" value="Flag as Problem"/>
+                            </form>
+
+                       </div>
+				   </div>
+                </div>
+
+
+                <div class="6u">
+                       <div class="row">
+                            <div class="OneHundredPercentWidthGreyContainer" style="background:rgba(77,175,74,0.07);">
+
+                                    <form class="formNoBackground" method="post" action="/save_data/">{% csrf_token %}
+                                        <h3 class="lessBottomMargin">Use Existing School</h3>
+                                        <select class="normalWebkitSelect" name="schoolID" id='selectedSchoolID'>
+
+                                            {% if schoolMatches.count == 0 %}
+
+                                            <option value="">No Matching Schools</option>
+                                            {% for school in allSchools %}<option value="{{ school.id }}">{{ school.name }}</option>{% endfor %}
+
+                                            {% else %}
+
+                                            {% for each in schoolMatches %}
+                                                <option value="{{each.id}}">{{each.name}}</option>
+                                            {% endfor %}
+
+                                            {% endif %}
+                                        </select>
+                                        <input type="hidden" name="model" value="updateSchoolInUserSubmission">
+                                        <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                        <input type="submit" class="customsubmit" id="noSchoolMatches" value="<<-- Update User Submission" name="updateSchool">
+                                    </form>
+
+                                    <h3 class="lessBottomMargin" style="margin-left:10px;">Or Add New School</h3>
+                                    <form class="formNoBackground" action="/save_data/" method="post" >{% csrf_token %}
+                                     <input type="hidden" name="model" value="school">
+
+                                     <input type="text" name="newSchoolName" size=50 value="{{ submissionToValidate.school }}">
+                                     <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                     <input type="submit" class="customsubmit" value="Add School to Database"/>
+                                 </form>
+                            </div>
+                       </div>
+
+
+
+
+                       <div class="rowPaddedTop">
+                            <div class="OneHundredPercentWidthGreyContainer" style="background:rgba(152,78,163,0.07);">
+
+                                    <form class="formNoBackground" method="post" action="/save_data/">{% csrf_token %}
+
+                                        <h3 class="lessBottomMargin">Use Existing Student</h3>
+                                        <select class="normalWebkitSelect" name="selectedStudent" id="selectedStudentID">
+                                        {% if studentMatches.count == 0 %}
+                                            <option value="">No Matching Students</option>
+                                            {% for person in allPeople %}<option value="{{ person.id }}">{{ person.firstName }} {{ person.lastName }}</option>{% endfor %}
+
+                                        {% else %}
+
+
+                                        {% for each in studentMatches %}
+                                            <option value='{{ each.id }}'>{{ each.firstName }} {{ each.lastName }}</option>
+                                        {% endfor %}
+
+                                        {% endif %}
+                                        </select>
+                                        <input type="hidden" name="model" value="updateStudentInUserSubmission">
+                                        <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                        <input type="submit" id="useSelectedStudent" class="customsubmit" value="<<-- Update User Submission" name="updateStudent">
+                                    </form>
+
+                                    <h3 class="lessBottomMargin" style="margin-left:10px;">Or Add New Student</h3>
+                                    <form class="formNoBackground" action="/save_data/" method="POST"/>{% csrf_token %}
+                                        <label for="firstName" >First Name:</label><input type="text" size=50% name="firstName" value="{{ submissionToValidate.student_first_name }}">
+                                        <label for="lastName" >Last Name:</label><input type="text" size=50% name="lastName" value="{{ submissionToValidate.student_last_name }}">
+                                        <label for="yearOfPhD" >Year of PhD:</label><input type="text" size=50% name="yearOfPhD" value="{{ submissionToValidate.year_of_PhD }}">
+                                        <label for="school" >School Name:</label><input type="text" size=50% name="school" value="{{ submissionToValidate.school }}">
+                                        <input type="submit" class="customsubmit" value="Add Student to Database"/>
+                                        <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                        <input type="hidden" name="model" value="student">
+                                    </form>
+                            </div>
+                       </div>
+
+                       <div class="rowPaddedTop">
+                            <div class="OneHundredPercentWidthGreyContainer" style="background:rgba(55,126,184,0.07);">
+                                    <form class="formNoBackground" method="post" action="/save_data/">{% csrf_token %}
+                                        <h3 class="lessBottomMargin">Use Existing Advisor</h3>
+                                        <select class="normalWebkitSelect" name="selectedAdvisor" id="selectedAdvisorID">
+                                        {% if advisorMatches.count == 0 %}
+                                                <option value="">No Matching Advisors</option>
+                                                {% for person in allPeople %}<option value="{{ person.id }}">{{ person.firstName }} {{ person.lastName }}</option>{% endfor %}
+                                        {% else %}
+
+                                        {% for each in advisorMatches %}
+                                            <option value='{{ each.id }}'>{{ each.firstName }} {{ each.lastName }}</option>
+                                        {% endfor %}
+
+                                            {% endif %}
+                                            </select>
+                                            <input type="hidden" name="model" value="updateAdvisorInUserSubmission">
+                                            <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                            <input type="submit" class="customsubmit" id="useSelectedAdvisor" value="<<-- Update User Submission" name="updateAdvisor">
+                                    </form>
+
+                                <h3 class="lessBottomMargin" style="margin-left:10px;">Or Add New Advisor</h3>
+                                    <form class="formNoBackground" action="/save_data/" method="POST"/>{% csrf_token %}
+                                    <label for="firstName" >First Name:</label><input type="text" size=50% name="firstName" value="{{ submissionToValidate.advisor_first_name }}">
+                                    <label for="lastName" >LastName:</label><input type="text" size=50% name="lastName" value="{{ submissionToValidate.advisor_last_name }}">
+                                    <input type="hidden" name="referringUserSubmission" value="{{ submissionToValidate.id }}">
+                                    <input type="submit" class="customsubmit" value="Add Advisor to Database"/>
+                                    <input type="hidden" name="model" value="advisor">
+                                    </form>
+                            </div>
+                       </div>
+                </div>
+
+
+
+
+
+                   {% else %}
+                       <h4 class="customMessage">There are currently no user submissions needing validation.</h4>
+                   {% endif %}
+
+
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

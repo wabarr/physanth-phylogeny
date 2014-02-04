@@ -1,0 +1,64 @@
+{% extends "academicPhylo_base.html" %}
+{% load staticfiles %}
+{% block nav-about %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+						<li class="button customColor">The Project</li>
+						</div>
+
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+
+                        <article>
+                            <p>The goal of this project is to track the relationships among
+                            PhDs in Physical Anthropology. This project is inspired by <a href="http://dx.doi.org/10.1002/ajpa.20532">a paper by Kelley and Sussman</a>
+                            in the American Journal of Physical Anthropology, which presented "genealogy data" on field primatologists.</p>
+
+                            <p>Genealogy may be the more accurate term, but we like to think of it as a phylogenetic tree. Whatever term you use,
+                            we believe that tracing academic history is important. Using web tools, we are expanding on
+                            previous work by providing interactive visualizations of this data, and by allowing people
+                            from all over the world to contribute their data.</p>
+
+
+                        </article>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+						</div>
+
+				</div>
+				<div class="8u">
+
+					<!-- Content -->
+                        <article>
+                            <input type="button" onclick="window.location.href='/tree/'" class="customsubmit" value="View The Tree" />
+                            <input type="button" onclick="window.location.href='/submit/'" class="customsubmit" value="Add Your Data" />
+                        </article>
+                </div>
+            </div>
+
+
+</div>
+
+
+
+	</div>
+</div>
+{% endblock %}

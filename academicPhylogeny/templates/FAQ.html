@@ -1,0 +1,25 @@
+{% extends "academicPhylo_base.html" %}
+{% block nav-FAQ %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+    <div id="main-wrapper">
+		<div class="5grid-layout">
+            {% if FAQs %}
+                {% for FAQ in FAQs %}
+                    <div class="row">
+                        <div class="4u">
+                            <div id="sidebar">
+						        <li style="margin-top: 5px; width:95%; text-align:center;" class="button customColor">{{ FAQ.heading|safe }}</li>
+						    </div>
+                        </div>
+
+                        <div class="8u">
+                            {{ FAQ.text|safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

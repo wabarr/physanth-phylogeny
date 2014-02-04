@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title_keywords %}
+    <title>Academic Phylogeny of Physical Anthropology</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Tracing the academic lineage of Physical Anthropology PhDs." />
+		<meta name="keywords" content="PhD, physical anthropology, genealogy, biological anthropology" />
+
+{% endblock %}
+
+
+{% block extrastyle %}
+<link rel="shortcut icon" href="/static/images/phylo_favicon.ico" type="image/x-icon">
+<link rel="icon" href="/static/images/phylo_favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/static/css/academic_phylo.css" />
+{% block pagespecific_extrastyle %}{% endblock %}
+{% endblock %}
+
+{% block javascript_doc_ready %}{% endblock %}
+
+
+{% block googleanalytics %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-30014706-4', 'physanthphylogeny.org');
+  ga('send', 'pageview');
+
+</script>
+{% endblock %}
+
+{% block logo %}<a id="logoanchor" href="/">Academic Phylogeny of Physical Anthropology</a>{% endblock %}
+
+{% block navbar %}
+	<!-- Nav -->
+		<nav id="nav" class="mobileUI-site-nav">
+			<ul>
+            {% comment %}
+            {% block nav-about %}<li>{% endblock %}<a href="/about/">About</a></li>
+            {% block nav-people %}<li>{% endblock %}<a href="/people/">People</a></li>
+            {% endcomment %}
+
+                {% block nav-connections %}<li>{% endblock %}<a href="/tree/">Explore</a>
+                    <ul>
+                        <li><a href="/tree/">View Tree</a></li>
+                        <li><a href="/search/">Search For People</a></li>
+                        <li><a href="/explore/">Visualize Trends</a></li>
+                        <li><a href="/people/">Find People By Attributes</a></li>
+                    </ul>
+                </li>
+            {% block nav-FAQ %}<li>{% endblock %}<a href="/FAQ/">FAQ</a></li>
+
+            <li><a href="/support/">Contribute</a>
+                <ul>
+                    <li><a href="/submit/">Submit Data</a></li>
+                    <li><a href="/support/">Support the Project</a></li>
+                </ul>
+            </li>
+
+			{% block nav-contact %}<li>{% endblock %}<a href="/contact/">Contact</a></li>
+			</ul>
+		</nav>
+{% endblock %}
+{% block admin_link %}| <a href="/admin/">Administrator Login</a>{% endblock %}
+
+{% block validation_count %}
+    {% if validation_count %}
+    | <a href="/validate/">{{ validation_count }}</a>
+    {% endif %}
+{% endblock %}

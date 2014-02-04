@@ -1,0 +1,76 @@
+{% extends  "academicPhylo_base.html" %}
+{% block javascript_doc_ready %}
+    <script>
+    $( document ).ready(function() {
+
+    $(function(){
+    $("#searchTextBox").focus();
+        });
+
+    });
+    </script>
+{% endblock %}
+{% block base_content %}
+   <div id="main-wrapper">
+		<div class="5grid-layout">
+
+            <div class="row">
+				<div class="4u">
+
+					<!-- Sidebar -->
+						<div id="sidebar">
+                        <article><li class="button customColor">Search the Tree</li></article>
+				    </div>
+                </div>
+				<div class="8u">
+                {% if not messages %}
+                    <h3>Type someone's name in the box below to search.</h3>
+                    <form action="." method="post" class="formNoBackground">{% csrf_token %}
+                    <input type="search" name="searchbox" size=100% id="searchTextBox">
+                    <input class="customsubmit" type="submit" value="Search" />
+                    </form>
+                {% endif %}
+
+
+    {% if messages %}
+        <form action="/tree/" method="post" class="formNoBackground">{% csrf_token %}
+        <article>
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}">{% endif %}<h3>{{ message }}</h3></li>
+                {% for each in matches %}
+
+                    <table>
+                    <tr><td style="padding-right: 5px">{{ each.firstName }} {{ each.lastName }}</td><td><a href="/tree/{{ each.id }}">Show On Tree</a></td><td><a href="/detail/{{ each.URL_for_detail }}">Show Detail Page</a></td></tr>
+                    </table>
+                {% endfor %}
+                {% if not success%}
+                    <h3>Remember, you can <a style="text-decoration: underline;color:#0090c5;" href="/submit/">add your own data.</a></h3>
+                {% endif %}
+
+                </form>
+
+                </article>
+
+                <p>
+                <form action="/search/" class="formNoBackground">
+                <input class="customsubmit" type="submit" value="Clear This Search "/>
+                </form>
+
+                </p>
+
+
+            {% endfor %}
+            </ul>
+
+            {% endif %}
+            </form>
+
+
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+{% endblock %}

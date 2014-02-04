@@ -1,0 +1,64 @@
+{% extends "academicPhylo_base.html" %}
+{% load staticfiles %}
+{% block nav-home %}<li class="current_page_item">{% endblock %}
+
+{% block base_content %}
+
+    <!-- Banner Wrapper -->
+			<div id="banner-wrapper">
+				<div class="5grid-layout">
+
+
+                     <div class="row">
+                      <div class="6u">
+                          <section class="box box-feature">
+                              <div class="inner" style="text-align:center;">
+                                 <header><a href="/explore/" class="button button-icon button-icon-rarrow">Visualize Trends</a></header>
+                                 <p>Interactive graphs of the growth in Physical Anthropology PhDs through time, plus
+                                    trends by school and specialization.</p>
+                              </div>
+                          </section>
+                      </div>
+
+                       <div class="6u">
+                          <section class="box box-feature">
+                              <div class="inner" style="text-align:center;">
+                                 <header><a href="/people/" class="button button-icon button-icon-rarrow">Custom Search</a></header>
+                                 <p>Filter the database to find people by the year their PhD was awarded, by the school they attended, or by specialization.</p>
+                              </div>
+                          </section>
+                      </div>
+
+
+                  </div>
+
+
+					<div class="row">
+						<div class="12u">
+
+							<!-- Banner -->
+								<div id="banner" class="box">
+
+									<div class="5grid">
+										<div class="row">
+											<div class="7u">
+												<p>We are creating an<br>
+                                                   interactive phylogeny of<br>
+                                                    Physical Anthropology PhDs!</p>
+										    </div>
+
+											<div class="5u">
+                                            <a href="/tree/"><img src="{% static "images/phylo.jpg" %}" width = 100%></a>
+										    </div>
+                                        </div>
+								        </div>
+                                    <div class="row">
+                                        <p><a href="/tree/">Check out the tree</a> or <a href="/FAQ/">learn more</a> about our project.</p>
+                                    </div>
+						        </div>
+					        </div>
+				        </div>
+			        </div>
+                </div>
+
+{% endblock %}

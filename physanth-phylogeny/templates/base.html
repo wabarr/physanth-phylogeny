@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<!--
+	Verti 1.0 by HTML5 Up!
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+    {% block title_keywords %}
+		<title>W. Andrew Barr</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Personal website of W. Andrew Barr: paleoecology and human evolution." />
+		<meta name="keywords" content="paleoecology, human evolution, fossils, anthropology, paleoanthropology, Rstats, R" />
+	{% endblock %}
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,800" rel="stylesheet" type="text/css" />
+		<link href="http://fonts.googleapis.com/css?family=Oleo+Script:400" rel="stylesheet" type="text/css" />
+		<script src="/static/css/5grid/jquery.js"></script>
+		<script src="/static/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI_titleBarOverlaid=1&amp;mobileUI_titleBarHeight=60&amp;viewport_is1000px=1060&amp;mobileUI_openerWidth=80"></script>
+
+        <noscript>
+			<link rel="stylesheet" href="/static/css/5grid/core.css" />
+			<link rel="stylesheet" href="/static/css/5grid/core-desktop.css" />
+			<link rel="stylesheet" href="/static/css/5grid/core-1200px.css" />
+			<link rel="stylesheet" href="/static/css/5grid/core-noscript.css" />
+			<link rel="stylesheet" href="/static/css/style.css" />
+			<link rel="stylesheet" href="/static/css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+    {% block extrastyle %}{% endblock %}
+    {% block javascript_doc_ready %}{% endblock %}
+    {% block googleanalytics %}{% endblock %}
+	</head>
+	<body class="no-sidebar">
+
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="5grid-layout">
+                    <div class="row">
+					    <div class="12u">
+							<!-- Header -->
+								<header id="header">
+
+
+										<div id="logo">
+											<h1><a href="#" class="mobileUI-site-name">{% block logo %}Ancient Eco{% endblock %}</a></h1>
+										</div>
+
+                                        {% block navbar %}
+										    <nav id="nav" class="mobileUI-site-nav">
+											<ul>
+												{% block nav-connections %}<li>{% endblock %}<a href="#">View Connections</a></li>
+												<li><a href="http://wabarr.webfactional.com/django/admin/myproject/connection">The Database</a></li>
+												<li><a href="http://wabarr.webfactional.com/django/contact">Questions?</a></li>
+											</ul>
+										</nav>
+                                    {% endblock %}
+								</header>
+					    </div>
+				    </div>
+			    </div>
+            </div>
+
+
+		{% block base_content %}
+		{% endblock %}
+
+
+
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+
+					</div>
+					<div class="row">
+						<div class="12u">
+							<div id="copyright">
+								&copy; W. Andrew Barr. All rights reserved. | Images: <a href="http://iconify.it/">Iconify.it</a> | Design: <a href="http://html5up.net/">HTML5 Up!</a>  {% block validation_count %}{% endblock %}{% block admin_link %}{% endblock %}
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+
+	</body>
+</html>
