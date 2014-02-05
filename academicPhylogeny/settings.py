@@ -2,6 +2,9 @@
 import os
 import platform
 
+import secrets
+#this is a file called secrets.py that stores sensitive information and is added to the .gitignore file
+
 PROJECT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"..")
 
 DEBUG = False
@@ -103,7 +106,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'aubtegi%)26ji1a+e67-^!cpn%4q087=+(ruo1hns4_pg@s0n='
+SECRET_KEY = secrets.SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -187,7 +190,7 @@ LOGGING = {
 
 EMAIL_HOST = 'smtp.webfaction.com'   
 EMAIL_HOST_USER = 'wabarr'
-EMAIL_HOST_PASSWORD = 'asdfjkl;'         
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = 'mail@wabarr.webfactional.com'
 SERVER_EMAIL = 'mail@wabarr.webfactional.com'
 
