@@ -1,4 +1,4 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect, Http404
 from django.template import Context, loader,RequestContext
 from django.shortcuts import render_to_response,render
 from academicPhylogeny.models import connection,userSubmission,person,ContactForm,school,frequently_asked_question, userSubmissionInValidation,userContact, specialization, PhDPredictonParameters
@@ -115,6 +115,39 @@ def home(request):
     return render_to_response('home.html',
                              {"validation_count":validation_count},
                           context_instance=RequestContext(request))
+
+def people_ajax(request):
+    if request.is_ajax():
+        filterArgs = {}
+        for key,value in request.GET.iteritems():
+            if value:
+                if value <> "":
+                    filterArgs[key] = value
+        theConnections = connection.objects.filter(** filterArgs).order_by('student__yearOfPhD')
+        if not theConnections:
+            return HttpResponse("<h3>Nobody in the database matches your query.</h3>")
+
+        #decide how many matches to figure out singular vs plural
+        if theConnections.count() == 1:
+            peoplematch = " person matches"
+        else:
+            peoplematch = " people match"
+
+        response = "<h3>" + str(theConnections.count()) + peoplematch + " your query.</h3>"
+        response += "<table>"
+        response += "<tr style='font-weight:bold;'><td>Student Name</td><td>School</td><td>Year</td></tr>"
+        for each in theConnections:
+            response += "<tr>"
+            response += "<td>" + each.student.firstName + " " + each.student.lastName + "</td>"
+            response += "<td>" + each.student.school.name + "</td>"
+            response += "<td>" + str(each.student.yearOfPhD) + "</td>"
+            response += "<td><a href='/detail/" + each.student.URL_for_detail + "/'>Detail</a></td>"
+            response += "<td><a href='/tree/" + str(each.student.id) + "'>Tree</a></td>"
+            response += "</tr>"
+        response += "</table>"
+        return HttpResponse(response)
+    else:
+        raise Http404
 
 def people(request):
     #if not request.user.is_authenticated():

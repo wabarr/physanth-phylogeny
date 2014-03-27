@@ -5,38 +5,34 @@
 {% block javascript_doc_ready %}
     <script>
     $( document ).ready(function() {
-
-    //repopulate the values filterSelectWidgets from the hiddenFilterValues by matching up their names
-    // which get passed back from the view after each time the view is run
-    // this way we don't lose the search parameters each time
-    $(".hiddenFilterValues").each(function(){
-        var theValue = $(this).val();
-        $("#" + this.name).val(theValue);
-        $("#" + this.name).css("background-color","rgba(228, 26, 28,.2)");
-    });
+    $("#ajax_search_results").html("<h3>Please choose some search parameters.</h3>")
 
     //loop through all the filterSelectWidgets and put an onchange event that creates the new url and redirects
     $(".filterSelectWidget").each(function(){
-        $(this).on("change",makeURLandRedirect)
+        $(this).on("change",makeURLsendAJAX);
+        $(this).on("change", function(){
+            $(this).css("background-color","rgba(228, 26, 28,.2)");
+        });
     });
 
     $("#clearSearchFilters").on("click",function(){
         $(".filterSelectWidget").each(function(){
-            $(this).val(null);
+            $(this).prop('selectedIndex',0);
+            $(this).css("background-color","white");
+            $("#ajax_search_results").html("<h3>Please choose some search parameters.</h3>")
         });
-        window.location.href="/people/";
     });
-    function makeURLandRedirect(index){
-        var theURL = "/people/?"
+
+    function makeURLsendAJAX(index){
+        var theURL = "/people_ajax/?"
         $(".filterSelectWidget").each(function(){
             if($(this).val() !== null){
                 partialURL = $(this).attr("id") + "=" + $(this).val() + "&";
                 theURL += partialURL;
             };
-
-
         });
-        window.location.href=theURL;
+
+        $("#ajax_search_results").load(theURL);
     };
 
 
@@ -132,38 +128,10 @@
                 </div>
 
 				<div class="8u">
-                    {% if not SearchParameters %}
-                        <p class="customMessage">Please select some search options from the menus on the left.</p>
-                    {% else %}
-
-                    {% if theConnections.count = 0 %}
-                    <p class="customMessage">Nobody in our database matches your query.</p>
-                    {% else %}
-                     <h3>Showing {{ theConnections.count }} match{% if theConnections.count > 1 %}es{% endif %} for your query.</h3>
-
-                     <table>
-                        <tr style="font-weight: bold;"><td>Student Name</td><td>School</td><td>Year</td></tr>
-                        {% for each in theConnections %}
-                            <tr>
-                                <td>{{ each.student.firstName }} {{ each.student.lastName }}</td>
-                                <td>{{ each.student.school }}</td>
-                                <td>{% if each.student.yearOfPhD == None %}Unknown{% else %}{{ each.student.yearOfPhD }}{% endif %}</td>
-                                <td><a href="/detail/{{ each.student.URL_for_detail }}">Details</a></td>
-                                <td><a href="/tree/{{ each.student.id }}">Tree</a></td>
-                            </tr>
-                        {% endfor %}
-                    </table>
 
 
-                {% if filterArgs %}
-                    {% for key,value in filterArgs.iteritems %}
-                        <input type="hidden" class="hiddenFilterValues" value={{ value }} name="{{ key }}">
-                    {% endfor %}
+                <div id="ajax_search_results"></div>
 
-                {% endif %}
-
-                {% endif %}
-                {% endif %}
                 Please <a href="/contact/">contact us</a> before using data from the site in any publication.
 				</div>
 			</div>
