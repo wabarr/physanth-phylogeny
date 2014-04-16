@@ -172,3 +172,16 @@ h3.lessBottomMargin{
 		#nav ul ul li a {
 			color: #696969;
 		}
+
+#login-form {
+    text-align:right;
+    margin-bottom:0;
+    padding-bottom:0;
+}
+#login-form input {
+    display:inline;
+}
+
+#header-wrapper {
+    margin-top:0;
+}
