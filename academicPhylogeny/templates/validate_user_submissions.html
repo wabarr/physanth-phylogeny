@@ -4,20 +4,33 @@
 
     function userDoubleCheck()
         {
-        var selectedAdvisor = $("#selectedAdvisorID option:selected").val();
-        var selectedStudent = $("#selectedStudentID option:selected").val();
-        $('#advisorToSave').val(selectedAdvisor);
-        $('#studentToSave').val(selectedStudent);
+        //first check if we are flaging as a problem
+        if ($('#admin_problem').prop('checked') ) {
+            {
+            if (confirm("Mark this submission as a problem?"))
+                {return true;}
+            else
+                {return false;}
+            }
+        }
+        else {
+            //else we are confirming data before save
+                var selectedAdvisor = $("#selectedAdvisorID option:selected").val();
+                var selectedStudent = $("#selectedStudentID option:selected").val();
+                $('#advisorToSave').val(selectedAdvisor);
+                $('#studentToSave').val(selectedStudent);
 
-        var school = $("#selectedSchoolID option:selected").text();
-        var advisor = $("#selectedAdvisorID option:selected").text();
-        var student = $("#selectedStudentID option:selected").text();
-        if(confirm("Confirm Before Adding to Database:\n\nSchool=  " + school + "\n\n" +
-                            "Student= " + student + "\n\n" +
-                            "Advisor= " + advisor ))
-            {return true;}
-        else
-            {return false;}
+                var school = $("#selectedSchoolID option:selected").text();
+                var advisor = $("#selectedAdvisorID option:selected").text();
+                var student = $("#selectedStudentID option:selected").text();
+                if( confirm("Confirm Before Adding to Database:\n\nSchool = " + school + "\n\n" +
+                                    "Student = " + student + "\n\n" +
+                                    "Advisor = " + advisor ))
+                    {return true;}
+                else
+                    {return false;}
+            }
+
         };
 
     $(document).ready(function(){
