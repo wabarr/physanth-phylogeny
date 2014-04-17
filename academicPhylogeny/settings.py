@@ -80,7 +80,7 @@ MEDIA_URL = ''
 if DEV:
     STATIC_ROOT = os.path.join(PROJECT_DIR, "base/static") #FOR DEV ONLY
 else:
-    STATIC_ROOT = "/home/wab536/webapps/physphylostatic/"
+    STATIC_ROOT = "/home/wabarr/webapps/physphylostatic/"
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 if DEV:
