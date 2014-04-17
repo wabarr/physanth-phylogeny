@@ -177,11 +177,12 @@ h3.lessBottomMargin{
     text-align:right;
     margin-bottom:0;
     padding-bottom:0;
+    background:transparent;
 }
 #login-form input {
     display:inline;
 }
 
 #header-wrapper {
-    margin-top:0;
+    padding-top:0;
 }

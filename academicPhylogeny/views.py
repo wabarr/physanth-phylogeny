@@ -1,4 +1,4 @@
-from django.http import HttpResponse,HttpResponseRedirect, Http404
+from django.http import HttpResponse,HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.template import Context, loader,RequestContext
 from django.shortcuts import render_to_response,render
 from academicPhylogeny.models import connection,userSubmission,person,ContactForm,school,frequently_asked_question, userSubmissionInValidation,userContact, specialization, PhDPredictonParameters
@@ -771,3 +771,25 @@ def explore(request):
     return render_to_response('explore.html',
                              {"preds":preds},
                           context_instance=RequestContext(request))
+
+def ajax_login(request):
+    if request.is_ajax():
+        if request.POST:
+            username = request.POST['username']
+            password = request.POST['password']
+            nextURL = request.POST['nextURL']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponse(nextURL)# return 200 with the url to redirect
+                else:
+                    return "Your user account is not active" #I don't do anything with this yet in template or jquery
+            else:
+                return HttpResponseForbidden() #return 403 to indicate failed login
+
+        else:
+            return HttpResponseForbidden() #return 403
+    else:
+        return HttpResponseForbidden() #return 403
+
