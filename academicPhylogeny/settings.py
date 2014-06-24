@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     #'physanth-phylogeny',
     #'personalWebsite',
     'academicPhylogeny',
+    'adverts',
     #'django.contrib.comments',
     #'tagging',
     #'mptt',

@@ -186,3 +186,17 @@ h3.lessBottomMargin{
 #header-wrapper {
     padding-top:0;
 }
+
+.single-book-medium-amazon {
+    margin:auto;
+    padding-left: 8px;
+    padding-right: 8px;
+
+}
+
+#ad-container {
+    padding: 15px 10px 0px 10px ;
+    border-style: solid;
+    border-width: 1px;
+    text-align:center;
+}

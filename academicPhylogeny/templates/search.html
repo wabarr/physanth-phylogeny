@@ -15,20 +15,14 @@
 		<div class="5grid-layout">
 
             <div class="row">
-				<div class="4u">
-
-					<!-- Sidebar -->
-						<div id="sidebar">
-                        <article><li class="button customColor">Search the Tree</li></article>
-				    </div>
-                </div>
-				<div class="8u">
+                <div class="3u"></div>
+				<div class="6u" style="text-align: center;">
                 {% if not messages %}
-                    <h3>Type someone's name in the box below to search.</h3>
                     <form action="." method="post" class="formNoBackground">{% csrf_token %}
-                    <input type="search" name="searchbox" size=100% id="searchTextBox">
-                    <input class="customsubmit" type="submit" value="Search" />
+                    <input type="search" name="searchbox" size=100% id="searchTextBox" style="display:inline;">
+                    <input class="customsubmit" type="submit" style="display:inline;" value="Search the Tree" />
                     </form>
+                <div class="3u"></div>
                 {% endif %}
 
 
@@ -54,7 +48,7 @@
 
                 <p>
                 <form action="/search/" class="formNoBackground">
-                <input class="customsubmit" type="submit" value="Clear This Search "/>
+                <input class="customsubmit" type="submit" style="display:inline;" value="Clear This Search "/>
                 </form>
 
                 </p>
@@ -69,8 +63,27 @@
 
                 </div>
             </div>
+        <!-- Advertisements-->
+        <div class="row">
+            <div class="4u"></div>
+            <div class="4u" id="ad-container" style="position:relative;">
+                <div class="row">
+                    {% for ad in threeAds %}
+                    <span class="single-book-medium-amazon">{{ ad.html|safe }}</span>
+                {% endfor %}
+                </div>
+                <div class="row">
+                    <a href="/support/" style="font-size:70%;">Amazon Links</a>
+                </div>
+
+
             </div>
+            <div class="4u"></div>
+            </div>
+
         </div>
+
+    </div>
 
 
 {% endblock %}

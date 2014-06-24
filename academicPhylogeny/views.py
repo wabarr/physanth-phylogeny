@@ -2,6 +2,7 @@ from django.http import HttpResponse,HttpResponseRedirect, Http404, HttpResponse
 from django.template import Context, loader,RequestContext
 from django.shortcuts import render_to_response,render
 from academicPhylogeny.models import connection,userSubmission,person,ContactForm,school,frequently_asked_question, userSubmissionInValidation,userContact, specialization, PhDPredictonParameters
+from adverts.models import Ad
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 import json
@@ -326,6 +327,7 @@ def JSONstream(request,selectedNameID=None):
 def search(request):
     matches=None
     success=None
+    threeAds = Ad.objects.all().order_by('?')[0:3]
 
     if request.method == "POST":
         searchstring=request.POST["searchbox"]
@@ -340,7 +342,7 @@ def search(request):
             success=True
 
     return render_to_response('search.html',
-                             {"matches":matches,"success":success},
+                             {"matches":matches,"success":success,"threeAds":threeAds},
                           context_instance=RequestContext(request))
 
 def userSubmitData(request):
