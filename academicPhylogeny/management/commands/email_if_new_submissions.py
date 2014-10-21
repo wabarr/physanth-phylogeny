@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from academicPhylogeny.models import userSubmission
 from django.core.mail import send_mail
 
-class sendNewSubmissionEmail(BaseCommand):
+class Command(BaseCommand):
     help = 'emails andrew with update on new submissions'
 
     def handle(self, *args, **options):
