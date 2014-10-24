@@ -11,7 +11,8 @@ class Command(BaseCommand):
         if submissionsToDo.count() > 0:
             message = "There are %(submissionCount)s new submissions on physanthphylogeny.org\n"%{"submissionCount": submissionsToDo.count()}
             message += "\nhttp://www.physanthphylogeny.org/validate"
+            send_mail("Submissions report physanthphylogeny.org", message, "do-not-reply@physanthphylogeny.org", ["wabarr@gmail.com"],fail_silently=False)
         else:
             pass
 
-        send_mail("Submissions report physanthphylogeny.org", message, "do-not-reply@physanthphylogeny.org", ["wabarr@gmail.com"],fail_silently=False)
+
