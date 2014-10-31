@@ -17,6 +17,7 @@ from django.utils.timezone import utc
 from django.db.models import Count,Min,Max
 from collections import Counter
 import operator
+from academicPhylogeny.forms import GetPersonForm
 
 def schoolSearch(searchstring):
     query = None
@@ -341,8 +342,9 @@ def search(request):
             messages.add_message(request, messages.INFO,"Possible matches:")
             success=True
 
+    theForm = GetPersonForm()
     return render_to_response('search.html',
-                             {"matches":matches,"success":success,"threeAds":threeAds},
+                             {"matches":matches,"success":success,"threeAds":threeAds, "theForm":theForm},
                           context_instance=RequestContext(request))
 
 def userSubmitData(request):

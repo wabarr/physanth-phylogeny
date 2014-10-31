@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    (r'^admin/lookups/', include("ajax_select.urls")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     url(r'^$', home, name='home'),

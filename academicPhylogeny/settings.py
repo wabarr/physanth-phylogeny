@@ -7,7 +7,7 @@ import secrets
 
 PROJECT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"..")
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
@@ -19,7 +19,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DEV=False
+DEV=True
 if DEV:
     db = os.path.abspath(os.path.join(PROJECT_DIR,"django_database.db"))
 else:
@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     #'personalWebsite',
     'academicPhylogeny',
     'adverts',
+    'ajax_select',
     #'django.contrib.comments',
     #'tagging',
     #'mptt',
@@ -206,3 +207,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   'django.core.context_processors.static',
 'django.contrib.messages.context_processors.messages',)
   #'zinnia.context_processors.version',)
+
+AJAX_LOOKUP_CHANNELS = {
+    #  simple: search taxonomy.objects.filter(specificEpithet__icontains=q)
+    'personLookup'  : ('ajax_select.lookups', 'personLookup')
+
+}

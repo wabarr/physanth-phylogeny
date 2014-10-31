@@ -1,5 +1,9 @@
 {% extends  "academicPhylo_base.html" %}
 {% block javascript_doc_ready %}
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="/static/ajax_select/js/ajax_select.js"></script>
+<link rel="stylesheet" href="/static/ajax_select/css/ajax_select.css" />
     <script>
     $( document ).ready(function() {
 
@@ -19,8 +23,7 @@
 				<div class="6u" style="text-align: center;">
                 {% if not messages %}
                     <form action="." method="post" class="formNoBackground">{% csrf_token %}
-                    <input type="search" name="searchbox" size=100% id="searchTextBox" style="display:inline;">
-                    <input class="customsubmit" type="submit" style="display:inline;" value="Search the Tree" />
+                    {{ theForm.as_p }}
                     </form>
                 <div class="3u"></div>
                 {% endif %}
