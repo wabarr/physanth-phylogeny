@@ -710,7 +710,7 @@ def detail(request,URL_for_detail):
 
 def summarizeSchools(request):
     response = HttpResponse(mimetype='application/json')
-    school_count = school.objects.annotate(num_phds=Count('person')).filter(num_phds__gt=2).exclude(name="Unknown",num_phds=0).order_by("-num_phds")
+    school_count = school.objects.annotate(num_phds=Count('person')).filter(num_phds__gt=3).exclude(name="Unknown",num_phds=0).order_by("-num_phds")
     response_list = []
     for indx, item in enumerate(school_count):
         item_dict={}
