@@ -87,28 +87,12 @@
     {% block googleanalytics %}{% endblock %}
 	</head>
 	<body class="no-sidebar">
-        <div id="login-header">
-           <div class="5grid-layout">
-                   <div class="row">
-					    <div class="12u">
-                            <form id="login-form">
-                                {% if user.is_authenticated %}
-                                    Howdy, {{ user.first_name }}!
-                                {% else %}
-                                    <input id='username' type="text" placeholder="username">
-                                    <input id='password' type="password" placeholder="password">
-                                    <input type="submit" value="login">
-                                {% endif %}
-                            </form>
-                        </div>
-                   </div>
-           </div>
-        </div>
+
         </div>
 		<!-- Header Wrapper -->
 			<div id="header-wrapper">
 				<div class="5grid-layout">
-                    <div class="row">
+                    <div class="row" style="padding-top:25px;">
 					    <div class="12u">
 							<!-- Header -->
 								<header id="header">
@@ -129,9 +113,13 @@
                                     {% endblock %}
 								</header>
 					    </div>
-				    </div>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Ffacebook.com%2Fphysanthphylogeny&amp;width=450&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=891349850905339" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+                    </div>
 			    </div>
             </div>
+
 
 
 		{% block base_content %}
