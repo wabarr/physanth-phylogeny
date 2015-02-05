@@ -7,7 +7,7 @@ import secrets
 
 PROJECT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"..")
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
@@ -19,7 +19,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DEV=False
+DEV=True
 if DEV:
     db = os.path.abspath(os.path.join(PROJECT_DIR,"django_database.db"))
 else:

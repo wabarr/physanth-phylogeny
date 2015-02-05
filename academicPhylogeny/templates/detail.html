@@ -1,6 +1,12 @@
 {% extends "academicPhylo_base.html" %}
 {% load replaceNone %}
 {% load static %}
+
+{% block title %}
+    <title>{{ thePerson.firstName }} {{ thePerson.lastName }}, PhD</title>
+    <meta property="og:title" content="{{ thePerson.firstName }} {{ thePerson.lastName }}, PhD"/>
+{% endblock %}
+
 {% block base_content %}
     <div id="main-wrapper">
 		<div class="5grid-layout">

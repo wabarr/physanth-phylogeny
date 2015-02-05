@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block title_keywords %}
-    <title>Academic Phylogeny of Physical Anthropology</title>
+    {% block title %}
+        {<title>Academic Phylogeny of Physical Anthropology</title>
+        <meta property="og:title" content="Academic Phylogent of Physical Anthropology"/>
+    {% endblock %}
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Tracing the academic lineage of Physical Anthropology PhDs." />
 		<meta name="keywords" content="PhD, physical anthropology, genealogy, biological anthropology" />
