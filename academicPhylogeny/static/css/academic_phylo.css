@@ -66,9 +66,9 @@ td {
     }
 tr:nth-child(odd)		{ background-color:transparent; }
 tr:nth-child(even)		{ background-color:#f1f1f1; }
-tr:hover {
-    background-color:rgba(228, 26, 28,.2);
-}
+/*tr:hover {*/
+    /*background-color:rgba(228, 26, 28,.2);*/
+/*}*/
 .FiftyPercentWidthGreyContainer
 {
     background:#f1f1f1;
@@ -199,4 +199,22 @@ h3.lessBottomMargin{
     border-style: solid;
     border-width: 1px;
     text-align:center;
+}
+
+/*DataTables*/
+strong{
+    font-weight:bold !important;
+}
+
+.dataTables_filter input {
+    width: 300px;
+}
+
+.dataTables_filter label {
+    font-size:200%;
+    font-weight: bold;
+}
+
+#search-table tbody tr {
+    cursor: pointer;
 }

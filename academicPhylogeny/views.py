@@ -804,9 +804,10 @@ def data_table_search(request):
 
 def search_table_json(request):
     response = HttpResponse(mimetype='application/json')
-    people=person.objects.all().values_list("firstName", "lastName", "yearOfPhD")
+    connections = connection.objects.all().values_list("student__URL_for_detail","student__lastName","student__firstName", "advisor__lastName","advisor__firstName", "student__yearOfPhD","student__school__name")
+    #people=person.objects.all().values_list("lastName", "firstName", "yearOfPhD", "school__name")
     responsedict = {"data":[]}
-    for individ in people:
-        responsedict["data"].append(individ)
+    for conn in connections:
+        responsedict["data"].append(conn)
     response.write(json.dumps(responsedict))
     return response
