@@ -1,0 +1,42 @@
+{% extends  "academicPhylo_base.html" %}
+{% block javascript_doc_ready %}
+
+
+    <script>
+    $(document).ready(function() {
+        //initiate the DataTable
+        $("#search-table").DataTable({
+            "ajax":"/search_table_json/"
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block title %}
+    <title>Search by Name</title>
+    <meta property="og:title" content="Search for PhDs by Name"/>
+{% endblock %}
+
+{% block base_content %}
+<div id="main-wrapper">
+    <div class="5grid-layout">
+        <div class="row">
+            <div class="12u">
+                <table id="search-table">
+                    <thead><td>First Name</td><td>Last Name</td><td>Year PhD Awarded</td></thead>
+                    <tfoot><td>First Name</td><td>Last Name</td><td>Year PhD Awarded</td></tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+{% endblock %}

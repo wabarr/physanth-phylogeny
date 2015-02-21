@@ -795,3 +795,18 @@ def ajax_login(request):
     else:
         return HttpResponseForbidden() #return 403
 
+def data_table_search(request):
+
+    return render_to_response("data_table_search.html",
+        {},
+          context_instance=RequestContext(request)
+    )
+
+def search_table_json(request):
+    response = HttpResponse(mimetype='application/json')
+    people=person.objects.all().values_list("firstName", "lastName", "yearOfPhD")
+    responsedict = {"data":[]}
+    for individ in people:
+        responsedict["data"].append(individ)
+    response.write(json.dumps(responsedict))
+    return response
