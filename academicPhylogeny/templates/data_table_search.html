@@ -26,7 +26,13 @@
         });
 
         $(".dataTables_filter input").focus();
-        
+        $("#school-filter").change(function(){
+           window.location.href = window.location.href + "?student__school__name=" + $(this).val();
+        });
+        $("#specialization-filter").change(function(){
+           window.location.href = window.location.href + "?student__specialization__name=" + $(this).val();
+        });
+
     });
     </script>
 {% endblock %}
@@ -39,6 +45,24 @@
 {% block base_content %}
 <div id="main-wrapper">
     <div class="5grid-layout">
+    <div class="row">
+        <div class="4u">
+            <select id="school-filter">
+                {% for option in schoolChoices %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="4u">
+            <select id="specialization-filter">
+                {% for option in specializationChoices %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="4u">
+        </div>
+    </div>
         {% if filterArgs %}
             <div class="row">
                 <div class="12u">

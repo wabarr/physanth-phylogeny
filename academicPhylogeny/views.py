@@ -801,9 +801,13 @@ def data_table_search(request):
         if key <> "_":
             if value <> "":
                 filterArgs[key] = value
-
+    schoolChoices = school.objects.all()
+    specializationChoices = specialization.objects.all()
     return render_to_response("data_table_search.html",
-        {"filterArgs":filterArgs},
+        {"filterArgs":filterArgs,
+         "schoolChoices":schoolChoices,
+         "specializationChoices":specializationChoices,
+         },
           context_instance=RequestContext(request)
     )
 
