@@ -10,7 +10,7 @@
     $(document).ready(function() {
         //initiate the DataTable
         $("#search-table").DataTable({
-            "ajax":"/search_table_json/",
+            "ajax":"/search_table_json/" + "{% for key, value in filterArgs.items %}{% if forloop.first %}?{% else %}&{% endif %}{{ key }}={{ value }}{% endfor %}",
              "columnDefs": [
                 { "visible": false, "targets": 0 }
              ],
@@ -18,7 +18,7 @@
 
                 // Bind click event
                 $(nRow).click(function() {
-                      window.open('/detail/' + aData[0]);
+                      window.location.href='/detail/' + aData[0];
                 });
 
                 return nRow;
@@ -39,6 +39,15 @@
 {% block base_content %}
 <div id="main-wrapper">
     <div class="5grid-layout">
+        {% if filterArgs %}
+            <div class="row">
+                <div class="12u">
+                    {% for key, value in filterArgs.items %}
+                        <li>{{ key }} = {{ value }}</li>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="12u">
                 <table class="compact hover" id="search-table">

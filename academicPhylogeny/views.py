@@ -796,16 +796,31 @@ def ajax_login(request):
         return HttpResponseForbidden() #return 403
 
 def data_table_search(request):
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
 
     return render_to_response("data_table_search.html",
-        {},
+        {"filterArgs":filterArgs},
           context_instance=RequestContext(request)
     )
 
 def search_table_json(request):
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
+    fieldsToGet = ["student__URL_for_detail","student__lastName","student__firstName", "advisor__lastName","advisor__firstName", "student__yearOfPhD","student__school__name"]
+    if filterArgs:
+        connections = connection.objects.filter(** filterArgs).values_list(* fieldsToGet)
+    else:
+        connections = connection.objects.all().values_list(* fieldsToGet)
+
     response = HttpResponse(mimetype='application/json')
-    connections = connection.objects.all().values_list("student__URL_for_detail","student__lastName","student__firstName", "advisor__lastName","advisor__firstName", "student__yearOfPhD","student__school__name")
-    #people=person.objects.all().values_list("lastName", "firstName", "yearOfPhD", "school__name")
+
     responsedict = {"data":[]}
     for conn in connections:
         responsedict["data"].append(conn)
