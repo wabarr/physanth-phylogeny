@@ -15,8 +15,16 @@
 
         $(".dataTables_filter input").focus();
 
+        $("#search-table_length").html($("#filter-container").html());
+        $("#filter-container").remove();
+        // this next bit has to be after the previous two lines, otherwise the on
+        // change events don't get added to the copied elements
         $(".filterselect").each(function() {
-          $(this).on("change",makeFilterURL);
+          $(this).on("change",function(){
+              makeFilterURL();
+              $(this).css("background-color","rgba(228, 26, 28,.2)");
+          });
+
         });
 
     });
@@ -31,31 +39,36 @@
 {% block base_content %}
 <div id="main-wrapper">
     <div class="5grid-layout">
-    <div class="row">
-        <div class="4u">
-            <label class="filterLabel">University:
-                <select id="student__school__name" class="filterselect">
-                <option selected disabled>Choose University</option>
-                    {% for option in schoolChoices %}
-                        <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </label>
+
+        <div class="row">
+
+            <div class="4u">
+            <div id="filter-container">
+                <span id="filterSectionLabel">Filters:</span>
+                    <select id="student__school__name" class="filterselect">
+                    <option selected disabled>Choose University</option>
+                        {% for option in schoolChoices %}
+                            <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="student__specialization__name" class="filterselect">
+                    <option selected disabled>Choose Specialization</option>
+                        {% for option in specializationChoices %}
+                            <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                <button id="clearFilterButton" onclick="clearFilters()">Clear Filters</button>
+            </div>
+            </div>
+
+            <div class="4u">
+            </div>
+
+            <div class="4u">
+            </div>
+
         </div>
-        <div class="4u">
-            <label class="filterLabel">Specialization:
-                <select id="student__specialization__name" class="filterselect">
-                <option selected disabled>Choose Specialization</option>
-                    {% for option in specializationChoices %}
-                        <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-        </div>
-        <div class="4u">
-            <h2 class="button" onclick="clearFilters()">Clear Filters</h2>
-        </div>
-    </div>
+
         <div class="row">
             <div class="12u">
                 <table class="compact hover" id="search-table">
@@ -113,8 +126,7 @@
 
     function clearFilters() {
         $(".filterselect").each(function(){
-           $(this).prop('selectedIndex',0);
-           searchtable.ajax.url(ajaxurl).load();
+           window.location.href="/search/";
         });
     }
     </script>

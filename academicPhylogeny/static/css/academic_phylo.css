@@ -219,8 +219,24 @@ strong{
     cursor: pointer;
 }
 
-.filterLabel {
-    font-size:120%;
+#filterSectionLabel {
+    font-size:200%;
     font-weight: bold;
     color:black;
+}
+
+#clearFilterButton {
+    border: 2px solid #0090c5;
+    background:transparent;
+    border-radius:5px;
+    width:100%;
+}
+
+#search-table {
+    padding-top:30px;
+}
+
+#search-table td:nth-child(1),
+#search-table td:nth-child(2) {
+    font-weight:bold;
 }
