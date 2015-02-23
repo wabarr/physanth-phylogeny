@@ -7,30 +7,16 @@
 
 
     <script>
+    var searchtable
+    var ajaxurl = '/search_table_json/'
     $(document).ready(function() {
         //initiate the DataTable
-        $("#search-table").DataTable({
-            "ajax":"/search_table_json/" + "{% for key, value in filterArgs.items %}{% if forloop.first %}?{% else %}&{% endif %}{{ key }}={{ value }}{% endfor %}",
-             "columnDefs": [
-                { "visible": false, "targets": 0 }
-             ],
-            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
-
-                // Bind click event
-                $(nRow).click(function() {
-                      window.location.href='/detail/' + aData[0];
-                });
-
-                return nRow;
-           }
-        });
+        makeDataTable(ajaxurl);
 
         $(".dataTables_filter input").focus();
-        $("#school-filter").change(function(){
-           window.location.href = window.location.href + "?student__school__name=" + $(this).val();
-        });
-        $("#specialization-filter").change(function(){
-           window.location.href = window.location.href + "?student__specialization__name=" + $(this).val();
+
+        $(".filterselect").each(function() {
+          $(this).on("change",makeFilterURL);
         });
 
     });
@@ -47,31 +33,29 @@
     <div class="5grid-layout">
     <div class="row">
         <div class="4u">
-            <select id="school-filter">
-                {% for option in schoolChoices %}
-                    <option value="{{ option }}">{{ option }}</option>
-                {% endfor %}
-            </select>
+            <label class="filterLabel">University:
+                <select id="student__school__name" class="filterselect">
+                <option selected disabled>Choose University</option>
+                    {% for option in schoolChoices %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </label>
         </div>
         <div class="4u">
-            <select id="specialization-filter">
-                {% for option in specializationChoices %}
-                    <option value="{{ option }}">{{ option }}</option>
-                {% endfor %}
-            </select>
+            <label class="filterLabel">Specialization:
+                <select id="student__specialization__name" class="filterselect">
+                <option selected disabled>Choose Specialization</option>
+                    {% for option in specializationChoices %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </label>
         </div>
         <div class="4u">
+            <h2 class="button" onclick="clearFilters()">Clear Filters</h2>
         </div>
     </div>
-        {% if filterArgs %}
-            <div class="row">
-                <div class="12u">
-                    {% for key, value in filterArgs.items %}
-                        <li>{{ key }} = {{ value }}</li>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
         <div class="row">
             <div class="12u">
                 <table class="compact hover" id="search-table">
@@ -90,4 +74,48 @@
 
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
+    <script>
+
+    function makeDataTable(ajaxurl) {
+        searchtable=$("#search-table").DataTable({
+            "ajax":ajaxurl,
+             "columnDefs": [
+                { "visible": false, "targets": 0 }
+             ],
+            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+
+                // Bind click event
+                $(nRow).click(function() {
+                      window.location.href='/detail/' + aData[0];
+                });
+
+                return nRow;
+           }
+        });
+    }
+
+    function makeFilterURL() {
+        urlparams = []
+        $(".filterselect").each(function(){
+            if(!$(this).val()){
+             //do nothing if the value is null
+            }
+            else {
+                urlparams.push($(this).closest("select").attr("id") + "=" + $(this).val());
+            }
+
+
+        });
+
+        searchtable.ajax.url(ajaxurl + "?" + urlparams.join("&")).load();
+    }
+
+    function clearFilters() {
+        $(".filterselect").each(function(){
+           $(this).prop('selectedIndex',0);
+           searchtable.ajax.url(ajaxurl).load();
+        });
+    }
+    </script>
 {% endblock %}

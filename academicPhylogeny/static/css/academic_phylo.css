@@ -218,3 +218,9 @@ strong{
 #search-table tbody tr {
     cursor: pointer;
 }
+
+.filterLabel {
+    font-size:120%;
+    font-weight: bold;
+    color:black;
+}
