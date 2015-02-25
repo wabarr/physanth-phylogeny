@@ -42,9 +42,9 @@
 
         <div class="row">
 
-            <div class="4u">
+            <div class="8u">
             <div id="filter-container">
-                <span id="filterSectionLabel">Filters:</span>
+                <span id="filterSectionLabel">Filter by university or specialization</span>
                     <select id="student__school__name" class="filterselect">
                     <option selected disabled>Choose University</option>
                         {% for option in schoolChoices %}
@@ -61,11 +61,8 @@
             </div>
             </div>
 
-            <div class="4u">
-            </div>
+           <div class="4u"></div>
 
-            <div class="4u">
-            </div>
 
         </div>
 
@@ -93,6 +90,11 @@
     function makeDataTable(ajaxurl) {
         searchtable=$("#search-table").DataTable({
             "ajax":ajaxurl,
+            "oLanguage": {
+                        "sSearch": "Search for a name",
+
+                        "sZeroRecords": "Nobody matches that search. Remember, <a href='/submit/'>you can submit new entries.</a> ",
+            },
              "columnDefs": [
                 { "visible": false, "targets": 0 }
              ],
@@ -126,8 +128,10 @@
 
     function clearFilters() {
         $(".filterselect").each(function(){
-           window.location.href="/newsearch/";
+            $(this).css("background-color","white")
+            $(this).prop('selectedIndex',0);
+            searchtable.ajax.url(ajaxurl).load();
         });
-    }
+    };
     </script>
 {% endblock %}
