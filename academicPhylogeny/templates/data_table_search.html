@@ -57,7 +57,7 @@
                             <option value="{{ option }}">{{ option }}</option>
                         {% endfor %}
                     </select>
-                <button id="clearFilterButton" onclick="clearFilters()">Clear Filters</button>
+                <button id="clearFilterButton" onclick="clearFilters()">Clear All Filters and Searches</button>
             </div>
             </div>
 
@@ -127,10 +127,12 @@
     }
 
     function clearFilters() {
+        searchtable.search('');
         $(".filterselect").each(function(){
             $(this).css("background-color","white")
             $(this).prop('selectedIndex',0);
             searchtable.ajax.url(ajaxurl).load();
+
         });
     };
     </script>
