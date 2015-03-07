@@ -13,59 +13,48 @@
 
         {% if thePerson %}
             <div class="row">
-                <div class="4u">
+                <div class="5u">
+
+                    <h2 style="margin-bottom: 10px;">{{ thePerson.firstName }} {{ thePerson.lastName }}</h2>
+                    {{ thePerson.school.name }} ({{ thePerson.yearOfPhD|replaceNone }})
+                    <p><a href="/tree/{{ thePerson.id }}">Highlight On Tree</a></p>
 
                 </div>
-
-                <div class="8u">
-                    <div class="OneHundredPercentWidthGreyContainer">
-                       <span style="font-weight: bold; font-size: 200%">{{ thePerson.firstName }} {{ thePerson.lastName }}</span><br>
-                       {{ thePerson.school.name }} ({{ thePerson.yearOfPhD|replaceNone }})   &nbsp;&nbsp;&nbsp;&nbsp; <a href="/tree/{{ thePerson.id }}">Highlight On Tree</a><br>
-
-                    </div>
-
-
-                </div>
-            </div>
-
-            {% if advisorConnection %}
+                <div class="7u">
+                {% if advisorConnection %}
             <div class="row">
-                <div class="4u">
-                    <div id="sidebar">
-					    <li style="width:100%; text-align:center;" class="button customColor">Advisor(s):</li>
-				    </div>
+                <div class="3u">
+                    <h4>Advisor:</h4>
+                </div>
+                <div class="9u">
+                    {% for each in advisorConnection.advisor.all %}<a href="/detail/{{ each.URL_for_detail }}">{{ each.firstName }} {{ each.lastName }}</a> - {{ each.school.name }} ({{ each.yearOfPhD|replaceNone }}){% if forloop.first %}<br>{% endif %}{% endfor %}
                 </div>
 
-                    <div class="8u">
-                        <p class="OneHundredPercentWidthGreyContainer">{% for each in advisorConnection.advisor.all %}<a href="/detail/{{ each.URL_for_detail }}">{{ each.firstName }} {{ each.lastName }}</a> - {{ each.school.name }} ({{ each.yearOfPhD|replaceNone }}){% if forloop.first %}<br>{% endif %}{% endfor %}<p>
-                    </div>
             </div>
             {% endif %}
 
             {% if thePerson.specialization.all %}
             <div class="row">
-                <div class="4u">
-                    <div id="sidebar">
-					    <li style="width:100%; text-align:center;" class="button customColor">Specialization(s):</li>
-				    </div>
+                <div class="3u">
+
+					    <h4>Specialization:</h4>
+
                 </div>
 
-                    <div class="8u">
-                        <p class="OneHundredPercentWidthGreyContainer">{% for each in thePerson.specialization.all %}{{ each.name }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p>
+                    <div class="9u">
+                        <p>{% for each in thePerson.specialization.all %}{{ each.name }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p>
                     </div>
              </div>
              {% endif %}
 
             {% if studentConnections %}
             <div class="row">
-                <div class="4u">
-                    <div id="sidebar">
-					    <li style="width:100%; text-align:center;" class="button customColor">PhD Students:</li>
-				    </div>
+                <div class="3u">
+					    <h4>PhD Students:<h4>
                 </div>
 
-                    <div class="8u">
-                        <p class="OneHundredPercentWidthGreyContainer">{% for each in studentConnections %}<a href="/detail/{{ each.student.URL_for_detail }}">{{ each.student.firstName }} {{ each.student.lastName }}</a> - {{ each.student.school.name }} ({{ each.student.yearOfPhD|replaceNone }}){% if not forloop.last %}<br>{% endif %}{% endfor %}</p>
+                    <div class="9u">
+                        <p>{% for each in studentConnections %}<a href="/detail/{{ each.student.URL_for_detail }}">{{ each.student.firstName }} {{ each.student.lastName }}</a> - {{ each.student.school.name }} ({{ each.student.yearOfPhD|replaceNone }}){% if not forloop.last %}<br>{% endif %}{% endfor %}</p>
                     </div>
              </div>
             {% endif %}
@@ -75,7 +64,7 @@
             <div class="row">
                 <div class="4u">
                     <div id="sidebar">
-					    <div class="OneHundredPercentWidthGreyContainer" style="background-color:transparent;"></div>
+
 				    </div>
                 </div>
 
@@ -88,6 +77,13 @@
                 </div>
             </div>
         {% endif %}
+
+                </div>
+
+                </div>
+
+
+
         </div>
     </div>
 
