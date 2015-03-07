@@ -90,6 +90,7 @@
     function makeDataTable(ajaxurl) {
         searchtable=$("#search-table").DataTable({
             "ajax":ajaxurl,
+            "order": [[ 1, "asc" ]],
             "oLanguage": {
                         "sSearch": "Search for a name",
 
