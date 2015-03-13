@@ -1,7 +1,10 @@
 {% extends "academicPhylo_base.html" %}
 
 {% block nav-connections %}<li>{% endblock %}
-
+{% block title %}
+    <title>Tree of Physical Anthropologists</title>
+    <meta property="og:title" content="{{ selectedPerson.firstName }} {{ selectedPerson.lastName }}, PhD"/>
+{% endblock %}
 {% block pagespecific_extrastyle %}
     <style>
 
