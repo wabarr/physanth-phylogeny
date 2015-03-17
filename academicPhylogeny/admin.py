@@ -14,14 +14,14 @@ class connectionAdmin(admin.ModelAdmin):
         )
 
 class personAdmin(admin.ModelAdmin):
-    list_display = ('id','firstName','lastName','yearOfPhD','school')
-    list_editable = ('firstName','lastName','yearOfPhD','school')
+    list_display = ('id','firstName','lastName','yearOfPhD','school','shareImageURL')
+    list_editable = ('firstName','lastName','yearOfPhD','school', 'shareImageURL')
     list_filter = ['school','specialization']
     search_fields = ("lastName","firstName")
     filter_horizontal = ("specialization",)
     fieldsets = (
         (None, {
-            'fields': (('firstName', 'middleName', 'lastName'),('yearOfPhD','school'),('specialization'))
+            'fields': (('firstName', 'middleName', 'lastName'),('yearOfPhD','school'),('specialization'),('shareImageURL'))
             }),
         )
 

@@ -3,6 +3,13 @@
 {% block nav-connections %}<li>{% endblock %}
 {% block title %}
     <title>Tree of Physical Anthropologists</title>
+    {% block fb_share_image %}
+        {% if selectedPerson.shareImageURL %}
+            <meta property="og:image" content="{{ selectedPerson.shareImageURL }}">
+        {% else %}
+            <meta property="og:image" content="http://www.physanthphylogeny.org/static/images/physanthphylogeny.png"/>
+        {% endif %}
+    {% endblock %}
     <meta property="og:title" content="{{ selectedPerson.firstName }} {{ selectedPerson.lastName }}, PhD"/>
 {% endblock %}
 {% block pagespecific_extrastyle %}
