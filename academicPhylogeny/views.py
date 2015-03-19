@@ -117,9 +117,9 @@ def home(request):
                              {"validation_count":validation_count},
                           context_instance=RequestContext(request))
 def featured(request):
-    featured_person = person.objects.get(isFeatured=True)
+    featured_person = person.objects.filter(isFeatured=True)
     return render_to_response('featured.html',
-                             {"featured_person":featured_person},
+                             {"featured":featured_person},
                           context_instance=RequestContext(request))
 def people_ajax(request):
     if request.is_ajax():

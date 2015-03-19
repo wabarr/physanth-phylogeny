@@ -5,15 +5,38 @@
     <!-- Banner Wrapper -->
             <div id="main-wrapper">
 				<div class="5grid-layout">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=891349850905339&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
                     <div class="row">
                         <div class="4u">
                             <strong>Featured Physical Anthropologist</strong>
                         </div>
                         <div class="8u">
-                            <h2>{{ featured_person.firstName }} {{ featured_person.lastName }}</h2>
-                            <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.shareImageURL }}" style="max-width:100%; margin-bottom:15px"/></a>
-                            {{ featured_person.featureBlurb|safe }}
+                            {% for featured_person in featured %}
+                                <div class="row">
+                                    <div class="12u">
+                                        <h2>{{ featured_person.firstName }} {{ featured_person.lastName }}</h2>
+                                        <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.shareImageURL }}" style="max-width:100%; margin-bottom:15px"/></a>
+                                        {{ featured_person.featureBlurb|safe }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="1u">
+                                    <div class="fb-like" data-href="https://www.facebook.com/physanthphylogeny" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                                </div>
+                                <div class="11u"><p>Please like our page on Facebook to hear about more featured physical anthropologists</p></div>
+
+
+                            </div>
+
                         </div>
                      </div>
                 </div>
