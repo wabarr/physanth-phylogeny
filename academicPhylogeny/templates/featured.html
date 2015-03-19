@@ -1,5 +1,8 @@
 {% extends "academicPhylo_base.html" %}
-
+{% block title %}
+    <title>Featured Physical Anthropologists</title>
+    <meta property="og:title" content="Featured Physical Anthropologists"/>
+{% endblock %}
 {% block base_content %}
 
     <!-- Banner Wrapper -->
@@ -16,13 +19,13 @@
 
                     <div class="row">
                         <div class="4u">
-                            <strong>Featured Physical Anthropologist</strong>
+                            <strong>Featured Physical Anthropologists</strong>
                         </div>
                         <div class="8u">
                             {% for featured_person in featured %}
                                 <div class="row">
                                     <div class="12u">
-                                        <h2>{{ featured_person.firstName }} {{ featured_person.lastName }}</h2>
+                                        <h2><a href="/detail/{{ featured_person.URL_for_detail }}">{{ featured_person.firstName }} {{ featured_person.lastName }}</a></h2>
                                         <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.shareImageURL }}" style="max-width:100%; margin-bottom:15px"/></a>
                                         {{ featured_person.featureBlurb|safe }}
                                     </div>
@@ -32,7 +35,7 @@
                                 <div class="1u">
                                     <div class="fb-like" data-href="https://www.facebook.com/physanthphylogeny" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
                                 </div>
-                                <div class="11u"><p>Please like our page on Facebook to hear about more featured physical anthropologists</p></div>
+                                <div class="11u"><p>Please like our page on Facebook to receive our updates!</p></div>
 
 
                             </div>
