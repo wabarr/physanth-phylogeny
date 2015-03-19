@@ -1,0 +1,21 @@
+{% extends "academicPhylo_base.html" %}
+
+{% block base_content %}
+
+    <!-- Banner Wrapper -->
+            <div id="main-wrapper">
+				<div class="5grid-layout">
+
+                    <div class="row">
+                        <div class="4u">
+                            <strong>Featured Physical Anthropologist</strong>
+                        </div>
+                        <div class="8u">
+                            <h2>{{ featured_person.firstName }} {{ featured_person.lastName }}</h2>
+                            <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.shareImageURL }}" style="max-width:100%; margin-bottom:15px"/></a>
+                            {{ featured_person.featureBlurb|safe }}
+                        </div>
+                     </div>
+                </div>
+            </div>
+{% endblock %}
