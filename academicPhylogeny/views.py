@@ -117,7 +117,7 @@ def home(request):
                              {"validation_count":validation_count},
                           context_instance=RequestContext(request))
 def featured(request):
-    featured_person = person.objects.filter(isFeatured=True)
+    featured_person = person.objects.filter(isFeatured=True).order_by("-dateFeatured")
     return render_to_response('featured.html',
                              {"featured":featured_person},
                           context_instance=RequestContext(request))

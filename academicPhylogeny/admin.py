@@ -21,7 +21,7 @@ class personAdmin(admin.ModelAdmin):
     filter_horizontal = ("specialization",)
     fieldsets = (
         (None, {
-            'fields': (('firstName', 'middleName', 'lastName'),('yearOfPhD','school'),('specialization'),('isFeatured','shareImageURL',"featureBlurb"))
+            'fields': (('firstName', 'middleName', 'lastName'),('yearOfPhD','school'),('specialization'),('isFeatured','dateFeatured','shareImageURL',"featureBlurb"))
             }),
         )
 
