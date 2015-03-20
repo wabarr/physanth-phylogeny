@@ -25,7 +25,7 @@
                             <h2>Featured Physical Anthropologists</h2>
                         </div>
                         <div class="8u">
-                            {% for featured_person in featured %}
+                            {% for featured_person in featured|slice:":3" %}
                                 <div class="row">
                                     <div class="12u">
                                         Featured on {{ featured_person.dateFeatured }}
