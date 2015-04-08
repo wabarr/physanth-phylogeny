@@ -31,7 +31,7 @@
                                         Featured on {{ featured_person.dateFeatured }}
                                         <h2><a href="/detail/{{ featured_person.URL_for_detail }}">{{ featured_person.firstName }} {{ featured_person.lastName }}</a></h2>
 
-                                        <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.shareImageURL }}" style="max-height:600px; max-width:100%; margin-bottom:15px"/></a>
+                                        <a href="/detail/{{ featured_person.URL_for_detail }}"><img src="{{ featured_person.featureImage.url }}" style="max-height:600px; max-width:100%; margin-bottom:15px"/></a>
                                         {{ featured_person.featureBlurb|safe }}
                                     </div>
                                 </div>
