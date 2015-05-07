@@ -1,9 +1,9 @@
 from academicPhylogeny.models import *
 from django.contrib import admin
+from ajax_select import make_ajax_form
+from ajax_select.admin import AjaxSelectAdmin
 
-
-
-class connectionAdmin(admin.ModelAdmin):
+class connectionAdmin(AjaxSelectAdmin):
     search_fields = ("student__lastName","student__firstName","advisor__lastName")
     filter_horizontal = ("advisor",)
     raw_id_fields = ("student",)
@@ -12,6 +12,8 @@ class connectionAdmin(admin.ModelAdmin):
             'fields': (('advisor',),('student',))
             }),
         )
+    # make_ajax_form takes a dict of {fieldname : channel_name, ... }
+    form = make_ajax_form(connection, {"student":"personLookup"})
 
 class personAdmin(admin.ModelAdmin):
     list_display = ('id','firstName','lastName','yearOfPhD','school','featureImage','isFeatured')
@@ -24,6 +26,7 @@ class personAdmin(admin.ModelAdmin):
             'fields': (('firstName', 'middleName', 'lastName'),('yearOfPhD','school'),('specialization'),('isFeatured','dateFeatured','featureImage',"featureBlurb"))
             }),
         )
+
 
 class userSubmissionAdmin(admin.ModelAdmin):
     list_display = ("connection","school","admin_added_to_db","admin_problem","Your_Email","date_submitted","date_last_modified")

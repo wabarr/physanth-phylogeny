@@ -69,7 +69,7 @@ USE_TZ = True
 if DEV:
     MEDIA_ROOT = os.path.join(PROJECT_DIR, "/media/") #FOR DEV ONLY
 else:
-    STATIC_ROOT = "/home/wabarr/webapps/physphylostatic/media/"
+    MEDIA_ROOT = "/home/wabarr/webapps/physphylostatic/media/"
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -81,7 +81,7 @@ MEDIA_URL = '/media/'
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 if DEV:
-    STATIC_ROOT = os.path.join(PROJECT_DIR, "base/static") #FOR DEV ONLY
+    STATIC_ROOT = os.path.join(PROJECT_DIR, "DEVSTATIC") #FOR DEV ONLY
 else:
     STATIC_ROOT = "/home/wabarr/webapps/physphylostatic/"
 # URL prefix for static files.
@@ -97,7 +97,7 @@ STATICFILES_DIRS = (#'/home/wabarr/webapps/htdocs/',
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR,"academicPhylogeny/static"),
-
+    os.path.join(PROJECT_DIR,"ajax_select/static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -138,6 +138,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR, 'base/templates'),
+    os.path.join(PROJECT_DIR, 'ajax_select/templates'),
     #os.path.join(PROJECT_DIR,'personalWebsite/templates'),
     #os.path.join(PROJECT_DIR,'academicPhylogeny/templates'),
 )
@@ -211,3 +212,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   #'zinnia.context_processors.version',)
 
 LOGIN_URL = "/anonymous/"
+
+AJAX_LOOKUP_CHANNELS = {
+    # define a custom lookup channel
+    'personLookup'   : ('ajax_select.lookups', 'personLookup')
+}
