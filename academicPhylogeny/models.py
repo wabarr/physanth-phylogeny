@@ -31,7 +31,11 @@ class person(models.Model):
     school = models.ForeignKey(school)
     specialization = models.ManyToManyField(specialization,null=True,blank=True)
     URL_for_detail = models.CharField(max_length = 200,null=True)
-
+    #shareImageURL = models.URLField(max_length=200, null=True, blank=True)
+    featureImage = models.FileField(max_length=255, blank=True, upload_to="people/images/", null=True)
+    featureBlurb = models.TextField(max_length=2000, null=True, blank=True, help_text="formatted with with <\p> tags")
+    isFeatured = models.NullBooleanField()
+    dateFeatured = models.DateField(null=True, blank=True)
     def get_absolute_url(self):
         return reverse('academicPhylogeny.views.detail', args=[self.URL_for_detail])
 

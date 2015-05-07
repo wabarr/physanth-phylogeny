@@ -117,7 +117,11 @@ def home(request):
     return render_to_response('home.html',
                              {"validation_count":validation_count},
                           context_instance=RequestContext(request))
-
+def featured(request):
+    featured_person = person.objects.filter(isFeatured=True).order_by("-dateFeatured")
+    return render_to_response('featured.html',
+                             {"featured":featured_person},
+                          context_instance=RequestContext(request))
 def people_ajax(request):
     if request.is_ajax():
         filterArgs = {}
@@ -712,7 +716,7 @@ def detail(request,URL_for_detail):
 
 def summarizeSchools(request):
     response = HttpResponse(mimetype='application/json')
-    school_count = school.objects.annotate(num_phds=Count('person')).filter(num_phds__gt=2).exclude(name="Unknown",num_phds=0).order_by("-num_phds")
+    school_count = school.objects.annotate(num_phds=Count('person')).filter(num_phds__gt=3).exclude(name="Unknown",num_phds=0).order_by("-num_phds")
     response_list = []
     for indx, item in enumerate(school_count):
         item_dict={}
@@ -797,3 +801,38 @@ def ajax_login(request):
     else:
         return HttpResponseForbidden() #return 403
 
+def data_table_search(request):
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
+    schoolChoices = school.objects.all()
+    specializationChoices = specialization.objects.all()
+    return render_to_response("data_table_search.html",
+        {"filterArgs":filterArgs,
+         "schoolChoices":schoolChoices,
+         "specializationChoices":specializationChoices,
+         },
+          context_instance=RequestContext(request)
+    )
+
+def search_table_json(request):
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
+    fieldsToGet = ["student__URL_for_detail","student__lastName","student__firstName", "advisor__lastName","advisor__firstName", "student__yearOfPhD","student__school__name"]
+    if filterArgs:
+        connections = connection.objects.filter(** filterArgs).values_list(* fieldsToGet)
+    else:
+        connections = connection.objects.all().values_list(* fieldsToGet)
+
+    response = HttpResponse(mimetype='application/json')
+
+    responsedict = {"data":[]}
+    for conn in connections:
+        responsedict["data"].append(conn)
+    response.write(json.dumps(responsedict))
+    return response

@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
 {% block title_keywords %}
-    <title>Academic Phylogeny of Physical Anthropology</title>
+    {% block title %}
+        <title>Academic Phylogeny of Physical Anthropology</title>
+        <meta property="og:title" content="Academic Phylogeny of Physical Anthropology"/>
+    {% endblock %}
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Tracing the academic lineage of Physical Anthropology PhDs." />
 		<meta name="keywords" content="PhD, physical anthropology, genealogy, biological anthropology" />
+    {% block fb_share_image %}<meta property="og:image" content="http://www.physanthphylogeny.org/static/images/physanthphylogeny.png"/>{% endblock %}
+
 
 {% endblock %}
 
@@ -45,10 +50,10 @@
 
                 {% block nav-connections %}<li>{% endblock %}<a href="/tree/">Explore</a>
                     <ul>
+                        <li><a href="/featured/">Featured PhDs</a></li>
                         <li><a href="/tree/">View Tree</a></li>
                         <li><a href="/search/">Search For People</a></li>
                         <li><a href="/explore/">Visualize Trends</a></li>
-                        <li><a href="/people/">Find People By Attributes</a></li>
                     </ul>
                 </li>
             {% block nav-FAQ %}<li>{% endblock %}<a href="/FAQ/">FAQ</a></li>

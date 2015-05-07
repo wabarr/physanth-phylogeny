@@ -1,6 +1,11 @@
 {% extends "academicPhylo_base.html" %}
 {% load staticfiles %}
 
+{% block title %}
+    <title>Explore Trends</title>
+    <meta property="og:title" content="Explore Trends"/>
+{% endblock %}
+
 {% block nav-about %}<li class="current_page_item">{% endblock %}
 
 {% block base_content %}
@@ -28,7 +33,7 @@
             <div class="row">
 
 				<div class="12u">
-                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">PhDs Awarded Per Year</h2>
+                    <h2>PhDs Awarded Per Year</h2>
 
                     <div id="yearLinesContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
 					<!-- Content -->
@@ -92,7 +97,7 @@
                         .attr("cy",function(d){return countScale(d.count);})
                         .attr("r",5)
 			            .attr("fill", "#0090c5")
-                        .on("dblclick",function(d){window.location.href="/people/?student__yearOfPhD__exact=" + d.year ;})
+                        .on("dblclick",function(d){window.location.href="/search/?student__yearOfPhD__exact=" + d.year ;})
                         .on("mouseover", function(){d3.select(this).style("fill", "black");})
                         .on("mouseout", function(){d3.select(this).style("fill", "#0090c5");})
                         .append("svg:title")
@@ -112,9 +117,9 @@
             <div class="row">
 
 				<div class="12u">
-                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">Schools by number of PhDs</h2>
+                    <h2 style="margin-top:15px;">Schools by number of PhDs</h2>
                     <div id="schoolChartContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
-                    <p>Hover to see school name. Double click to see PhDs from that school. Only schools producing more than 2 PhDs are shown.</p>
+                    <p>Hover to see school name. Only schools producing more than 2 PhDs are shown.</p>
 					<!-- Content -->
                     <script>
                     //Width and height
@@ -154,7 +159,7 @@
                                 if(d.school == "University of Texas at Austin") {return "#cc6600";}
                                 else {return "#0090c5";}
                             })
-                        .on("dblclick",function(d){window.location.href="/people/?student__school__id__exact=" + d.id ;})
+                        .on("dblclick",function(d){window.location.href="/search/?student__school__id__exact=" + d.id ;})
                         .on("mouseover", function(){d3.select(this).style("fill", "black");})
                         .on("mouseout", function(){d3.select(this).style("fill", function(d){
                                             if(d.school == "University of Texas at Austin") {return "#cc6600";}
@@ -184,10 +189,10 @@
             <div class="row">
 
 				<div class="12u">
-                    <h2 class="customMessage" style="background-color: #f1f1f1; padding:15px;">Specializations by number of PhDs</h2>
+                    <h2 style="margin-top:15px;">Specializations by number of PhDs</h2>
                     <div id="specializationChartContainer" style="border-radius: 5px; padding:20px; border:1px solid #0090c5">
 
-                    <p>Hover to see name of specialization. Double click to see PhDs with that specialization.</p>
+                    <p>Hover to see name of specialization.</p>
 					<!-- Content -->
                     <script>
 			        var specializationHeight = 400;
@@ -221,7 +226,7 @@
 			   		        return countScale(d.count);
 			            })
 			            .attr("fill", "#0090c5")
-                        .on("dblclick",function(d){window.location.href="/people/?student__specialization__id__exact=" + d.id ;})
+                        .on("dblclick",function(d){window.location.href="/search/?student__specialization__id__exact=" + d.id ;})
                         .on("mouseover", function(){d3.select(this).style("fill", "black");})
                         .on("mouseout", function(){d3.select(this).style("fill", "#0090c5");})
                         .append("svg:title")

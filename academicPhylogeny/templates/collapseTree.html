@@ -1,7 +1,17 @@
 {% extends "academicPhylo_base.html" %}
 
 {% block nav-connections %}<li>{% endblock %}
-
+{% block title %}
+    <title>Tree of Physical Anthropologists</title>
+    {% block fb_share_image %}
+        {% if selectedPerson.shareImageURL %}
+            <meta property="og:image" content="{{ selectedPerson.shareImageURL }}">
+        {% else %}
+            <meta property="og:image" content="http://www.physanthphylogeny.org/static/images/physanthphylogeny.png"/>
+        {% endif %}
+    {% endblock %}
+    <meta property="og:title" content="{{ selectedPerson.firstName }} {{ selectedPerson.lastName }}, PhD"/>
+{% endblock %}
 {% block pagespecific_extrastyle %}
     <style>
 
@@ -68,10 +78,12 @@
             {% endif %}
 
             <div class="row">
-                <div class="8u">
+                <div class="12u">
 
 					<!-- Sidebar -->
-                    <h3 class="customMessage" style="color:white; background-color: #444444; padding: 15px; font-weight:bold; margin-top: 10px;">Tree contains {{ nConnections }} people from {{ nSchools }} institutions.</h3>
+                    <h3 style="margin-bottom:4px">Tree contains {{ nConnections }} people from {{ nSchools }} institutions.</h3>
+                    <a href='/search/'>Search for Someone</a>
+
 
                     {% if selectedNameID %}
                         {% if not selectedPersonHasNoConnections %}
@@ -93,12 +105,8 @@
 
 
                 </div>
-                    {% else %}
-                    <div class="4u">
-                        <div id="buttons" style="margin-bottom: 10px;">
-                            <input type="button" onclick="window.location.href='/search/'" class="customsubmit" value="Search For Someone" />
-                        </div>
-                    </div>
+
+
                     {% endif %}
 
 

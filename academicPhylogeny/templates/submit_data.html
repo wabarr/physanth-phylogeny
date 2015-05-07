@@ -13,7 +13,7 @@
 
 					<!-- Sidebar -->
 						<div id="sidebar">
-                        <article><li class="button customColor">Make a new connection</li></article>
+                        <h3>Make a new connection<h3>
 						</div>
 
 				</div>
@@ -26,8 +26,8 @@
                     </ul>
                 {% endif %}
                 <article>
-                <p><span style="font-weight: bold;">Please <a href="/search/">search the tree</a> before submitting data.</span><br> This page is only for making new advisor --> student connections.<br>
-                    <span style="font-weight: bold;"><a href="/contact/">Use the contact page</a> </span>to change info for someone already in the tree.</p>
+                    <p class="customMessage">Do not submit corrections to existing entries here! Use the <a href="/contact/">contact page</a> instead.<p>
+
 
                 <input class="customsubmit" type="button" value="I get it! Let me submit my data." onclick="$('#submitForm,#submitFormContainer').show();"/>
                 <input class="customsubmit" type="button" value="I want to submit a correction for existing data." onclick="window.location.href='/contact/'"/>

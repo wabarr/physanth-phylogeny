@@ -14,6 +14,11 @@
     });
     </script>
 {% endblock %}
+
+{% block title %}
+    <title>Search by Name</title>
+    <meta property="og:title" content="Search for PhDs by Name"/>
+{% endblock %}
 {% block base_content %}
    <div id="main-wrapper">
 		<div class="5grid-layout">
@@ -69,15 +74,17 @@
         <!-- Advertisements-->
         <div class="row">
             <div class="3u"></div>
-            <div class="6u" id="ad-container" style="position:relative;">
+            <div class="6u" style="position:relative;">
+                {% comment %}
                 <div class="row">
                     {% for ad in threeAds %}
                     <span class="single-book-medium-amazon">{{ ad.html|safe }}</span>
-                {% endfor %}
+                    {% endfor %}
                 </div>
                 <div class="row">
                     <a href="/support/" style="font-size:70%;">Amazon Links</a>
                 </div>
+                {% endcomment %}
 
 
             </div>
