@@ -5,6 +5,8 @@ from academicPhylogeny.models import connection,userSubmission,person,ContactFor
 from adverts.models import Ad
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
+from django.contrib.auth.decorators import permission_required
+from django.core.urlresolvers import reverse
 import json
 from django.contrib import messages
 from django.forms.models import modelform_factory,model_to_dict
@@ -346,7 +348,6 @@ def search(request):
             messages.add_message(request, messages.INFO,"Possible matches:")
             success=True
 
-    theForm = GetPersonForm()
     return render_to_response('search.html',
                              {"matches":matches,"success":success,"threeAds":threeAds, "theForm":theForm},
                           context_instance=RequestContext(request))
@@ -369,6 +370,14 @@ def userSubmitData(request):
     return render_to_response('submit_data.html',
                           {"form":form, "validation_count":validation_count},
                           context_instance=RequestContext(request))
+
+@permission_required("academicPhylogeny.edit_connection")
+def newValidation(request):
+    theForm = GetPersonForm()
+    return render_to_response("new_validate_submissions.html",
+                              {"theForm":theForm},
+                              context_instance=RequestContext(request)
+    )
 
 def validateUserSubmission(request):
 
@@ -431,24 +440,27 @@ def validateUserSubmission(request):
         return HttpResponseRedirect("/nopermission/")
 
 def anonymousUser(request):
+    nextURL = request.GET.get("next", "/")
     if request.method=="POST":
+        try:
+            nextURL = request.POST["referringPageURL"]
+        except:
+            nextURL = "/"
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(request.POST["referringPageURL"])
+                return HttpResponseRedirect(nextURL)
             else:
                 return HttpResponse("This user account is not active.")
         else:
             messages.add_message(request, messages.INFO, 'Invalid username or password.')
-            return render_to_response('anonymous_user.html',
-                          {"referringPageURL":request.POST["referringPageURL"]},
-                          context_instance=RequestContext(request))
+            return HttpResponseRedirect("/anonymous/?next={0}".format(nextURL))
     else:
         return render_to_response('anonymous_user.html',
-                          {},
+                          {"referringPageURL":nextURL},
                           context_instance=RequestContext(request))
 
 def noPermission(request):

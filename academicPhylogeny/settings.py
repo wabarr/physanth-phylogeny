@@ -157,7 +157,6 @@ INSTALLED_APPS = (
     #'personalWebsite',
     'academicPhylogeny',
     'adverts',
-    'ajax_select',
     #'django.contrib.comments',
     #'tagging',
     #'mptt',
@@ -211,8 +210,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 'django.contrib.messages.context_processors.messages',)
   #'zinnia.context_processors.version',)
 
-AJAX_LOOKUP_CHANNELS = {
-    #  simple: search taxonomy.objects.filter(specificEpithet__icontains=q)
-    'personLookup'  : ('ajax_select.lookups', 'personLookup')
-
-}
+LOGIN_URL = "/anonymous/"
