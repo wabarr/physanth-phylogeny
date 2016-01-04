@@ -15,6 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.mail import send_mail
 import datetime
+import csv
 from django.utils.timezone import utc
 from django.db.models import Count,Min,Max
 from collections import Counter
@@ -43,6 +44,21 @@ def schoolSearch(searchstring):
                     query = query | Q(name__contains=term)
         matches=school.objects.filter(query)
         return matches
+
+def connections_CSV(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="phd_connections.csv"'
+    writer = csv.writer(response)
+    allConnections = connection.objects.order_by('advisor__lastName')
+    writer.writerow(['Advisors', 'Student Last', 'Student First', 'Year', 'School', 'Specialization'], )
+    for conn in allConnections:
+        writer.writerow([conn.advisor_name().encode('utf8'),
+                         conn.student_Last_Name().encode('utf8'),
+                         conn.student_First_Name().encode('utf8'),
+                         conn.student_Year_Of_PhD(),
+                         conn.student.school.name.encode('utf8'),
+                        ' / '.join([special.name for special in conn.student.specialization.all()]),])
+    return response
 
 def connections_JSON(request):
     #first get text data

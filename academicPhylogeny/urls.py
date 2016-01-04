@@ -44,6 +44,7 @@ urlpatterns = patterns('',
      url(r'^detail/$', search),
      url(r'^support/$',support),
      url(r'^ajax_login/',ajax_login),
+     url(r'^connectionsCSV', connections_CSV),
      url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
 
